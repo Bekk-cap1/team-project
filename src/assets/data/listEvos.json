@@ -1,0 +1,288 @@
+[
+    {
+        "id": 1,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    }
+    ,{
+        "id": 6,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "stock": 24,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Big Beef Lavash",
+        "list_name_ru": "Большой лаваш с говядиной",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 34000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "height": 345,
+        "recall": 4.4,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cp.ectn.uz/files//lavash_standart_govajiy_22_01.png"
+            }
+        ]
+    }
+]

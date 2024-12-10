@@ -1,0 +1,24 @@
+[
+    {
+        "id": 15,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Original large lavash",
+        "list_name_ru": "Оригинальный большой лаваш",
+        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
+        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
+        "price": 31000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "recall": 4.4,
+        "height": 355,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 1,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/aa44149a-db72-44ca-8749-18b7d87cb51e.png"
+            }
+        ]
+    }
+]
