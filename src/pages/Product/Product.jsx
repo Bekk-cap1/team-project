@@ -172,9 +172,7 @@ function Product() {
       })
     }
   }
-  else if(listProduct.length == 0){
-    console.log(listData);
-    
+  else if(listProduct.length == 0){    
     listProduct.push(listData.slice(pagination * 12 - 12, pagination * 12))
     listData.map((e, i) => {
       const mat = Math.floor(((i) / 12) + 1)
@@ -294,7 +292,7 @@ function Product() {
                     <h4 key={e[`name_${lan}`]}>
                       {e[`name_${lan}`]} :
                       <select onChange={(event) => selType(event, e)}>
-                        {e[`list_${lan}`].map((q) => (
+                        {e[`list_${lan}`]?.map((q) => (
                           <option key={q.turtle} value={q.turtle}>
                             {q[`title_${lan}`]}
                           </option>

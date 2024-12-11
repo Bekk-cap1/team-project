@@ -14,6 +14,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -36,6 +37,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -58,6 +60,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -80,6 +83,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -102,6 +106,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -124,6 +129,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -146,6 +152,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -167,7 +174,7 @@
         "price_en": "Price",
         "height": 345,
         "recall": 4.4,
-        "category": "lavash",
+        "category": "gamburger",
         "images": [
             {
                 "image_id": 1,
@@ -190,6 +197,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -212,6 +220,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -234,6 +243,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -256,6 +266,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,
@@ -278,6 +289,7 @@
         "height": 345,
         "recall": 4.4,
         "category": "lavash",
+        "name_fastfood": "evos",
         "images": [
             {
                 "image_id": 1,

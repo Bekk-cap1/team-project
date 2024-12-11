@@ -11,6 +11,9 @@ import { Context } from '../../assets/Context/Context';
 import jsonFile1 from "../../assets/data/listEvos.json";
 import jsonFile2 from "../../assets/data/listMaxway.json";
 import jsonFile3 from "../../assets/data/listOqtepa.json";
+import evoslogo from "../../assets/image/evoslogo.jpg"
+import maxway_logo from "../../assets/image/maxwaylogo3.png"
+import oqtepa_logo from "../../assets/image/oqtepalogo1.jpg"
 
 function Home() {
 
@@ -60,16 +63,38 @@ function Home() {
     e.preventDefault();
     const elSearch = e.target.elements.inp.value.toLowerCase();
 
-    const filteredData = listData.filter((item) => {
-      return (
-        item.category.toLowerCase().includes(elSearch) ||
-        item[`list_name_${lan}`].toLowerCase().includes(elSearch) ||
-        item[`list_text_${lan}`].toLowerCase().includes(elSearch)
-      );
-    });
+    // Фильтруем данные из каждой базы
+    const filteredData1 = jsonFile1.filter((item) =>
+      item.category.toLowerCase().includes(elSearch) ||
+      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+    );
 
-    setSearchData(filteredData.slice(0, 9));
+    const filteredData2 = jsonFile2.filter((item) =>
+      item.category.toLowerCase().includes(elSearch) ||
+      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+    );
+
+    const filteredData3 = jsonFile3.filter((item) =>
+      item.category.toLowerCase().includes(elSearch) ||
+      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+    );
+
+    // Получаем по одному элементу из каждого списка
+    const result = [
+      filteredData1[0],
+      filteredData2[0],
+      filteredData3[0]
+    ].filter(Boolean); // Убираем undefined, если в одном из списков нет подходящих элементов
+
+    // Сохраняем результат
+    console.log(result);
+
+    setSearchData(result);
   };
+
 
 
   const listHome = searchData.length ? searchData : listData.slice(-10, -1);
@@ -128,9 +153,7 @@ function Home() {
               onAutoplayTimeLeft={onAutoplayTimeLeft}
               className="mySwiper"
             >
-              {/* Слайды здесь */}
-              <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
-              <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
+              <SwiperSlide    ><h2><strong>119 000</strong> сум</h2></SwiperSlide>
               <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
               <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
               <div className="autoplay-progress" slot="container-end">
@@ -154,7 +177,7 @@ function Home() {
             <hr />
             <ul>
               {listHome.map((e) => (
-                <li key={e.id} onClick={() => navigate(`/products/${e.id}`)}>
+                <li key={e.id} className={listHome.length == 3 ? "three_items" : ''} onClick={() => navigate(`/products/${e.id}`)}>
                   <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -177,6 +200,13 @@ function Home() {
                     <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
                     <h2>{e[`list_name_${lan}`]}</h2>
                     <p>{e[`list_text_${lan}`]}</p>
+                    <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
+                    <div className='progress-bar'>
+                      <div className="progress-fill" style={{ width: `${e.id}%` }}>
+
+                      </div>
+                    </div>
+                    <span>{e.id}%</span>
                     <div>
                       <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
                       {
