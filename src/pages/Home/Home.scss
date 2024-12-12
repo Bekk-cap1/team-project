@@ -36,37 +36,20 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                
+
                 object-fit: cover;
                 object-position: center;
-                &:nth-child(1){
+
+                &:nth-child(1) {
                     background: url(../../assets/image/evoslogo.jpg);
                 }
-                &:nth-child(2){
+
+                &:nth-child(2) {
                     background: url(../../assets/image/maxwaylogo3.png);
                 }
-                &:nth-child(3){
+
+                &:nth-child(3) {
                     background: url(../../assets/image/oqtepalogo1.jpg);
-                }
-
-                h2 {
-                    justify-content: end;
-                    margin-left: 75%;
-                    margin-top: 350px;
-                    -webkit-text-fill-color: transparent;
-                    background: linear-gradient(90deg, rgba(255, 0, 0, 0.8491771708683473) 0%, rgba(121, 9, 94, 1) 31%, rgba(239, 10, 242, 1) 100%, rgba(0, 212, 255, 1) 100%);
-                    background-clip: text;
-                    -webkit-background-clip: text;
-
-                    strong {
-                        font-size: 42px;
-                        -webkit-text-fill-color: transparent;
-                        background: linear-gradient(90deg, rgba(255, 0, 0, 0.8491771708683473) 0%, rgba(121, 9, 94, 1) 31%, rgba(239, 10, 242, 1) 100%, rgba(0, 212, 255, 1) 100%);
-                        background-clip: text;
-                        -webkit-background-clip: text;
-                        // background: rgb(255, 0, 0);
-                    }
-
                 }
             }
 
@@ -224,46 +207,25 @@
                     display: flex;
                     justify-content: space-between;
                     flex-wrap: wrap;
-                    .three_items{
+
+                    .three_items {
                         height: 900px;
                         width: 420px;
                     }
 
                     li {
                         border-radius: 25px;
-                        box-shadow: 0 0 31px 8px rgba(186,175,186,1);
+                        box-shadow: 0 0 31px 8px rgba(186, 175, 186, 1);
                         width: 350px;
                         margin: 20px;
-                        padding: 0 20px;
                         cursor: pointer;
                         position: relative;
                         transition: 0.2s ease-in-out;
-                        .progress-bar {
-                            position: relative;
-                            height: 20px;
-                            width: 100%;
-                            background-color: #e0e0e0;
-                            text-align: start;
-                            border-radius: 10px;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: start;
-                            overflow: hidden;
-                      
-                            .progress-fill {
-                              height: 100%;
-                              background: linear-gradient(90deg, #4caf50, #8bc34a);
-                              transition: width 0.4s ease;
-                            }
-                          }
-                      
-                          span {
-                            font-size: 14px;
-                            color: #666;
-                          }
-                        &:hover{
+
+                        &:hover {
                             transform: scale(1.05);
                         }
+
                         .swiper {
                             width: 100%;
                             height: 300px;
@@ -286,6 +248,7 @@
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
+                            margin-bottom: 20px;
                         }
 
                         .swiper-button-next,
@@ -294,8 +257,71 @@
                                 display: none;
                             }
                         }
+
+                        .none {
+                            display: none;
+                        }
+
+                        .progress-bar {
+                            position: relative;
+                            display: block;
+                            height: 20px;
+                            width: 100%;
+                            background-color: #e0e0e0;
+                            text-align: start;
+                            border-radius: 10px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: start;
+                            overflow: hidden;
+                            margin: 10px 0;
+
+                            .progress-fill {
+                                height: 100%;
+                                background: linear-gradient(90deg, #7c2233, #db5f75);
+                                transition: width 0.4s ease;
+                            }
+                        }
+
+                        span {
+                            font-size: 14px;
+                            color: #666;
+                        }
+
                         .about_product {
-                            .fastfood_logo{
+                            padding: 0 20px;
+                            text-transform: capitalize;
+                            .none {
+                                display: none;
+                            }
+
+                            .indikator {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                font-size: 15px;
+
+                                span {
+                                    display: flex;
+                                    align-items: center;
+                                    color: #7c2233;
+
+                                    strong {
+                                        i {
+                                            font-size: 15px;
+                                            color: red;
+                                        }
+
+                                        padding-left: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        color: red;
+                                        font-size: 18px;
+                                    }
+                                }
+                            }
+
+                            .fastfood_logo {
                                 width: 50px;
                                 height: 40px;
                                 object-fit: cover;
@@ -305,6 +331,7 @@
                                 z-index: 999;
                                 left: 20px;
                             }
+
                             padding-bottom: 20px;
                             color: #7c2233;
 
@@ -322,14 +349,17 @@
                                 margin: 0;
                                 margin-bottom: 30px;
                             }
-                            div{
+
+                            div {
                                 display: flex;
                                 justify-content: space-between;
-                                h3{
+
+                                h3 {
                                     text-align: start;
                                     margin-left: 0;
                                 }
-                                button{
+
+                                button {
                                     width: 100px;
                                     height: 50px;
                                     background: none;
@@ -338,7 +368,8 @@
                                     cursor: pointer;
                                     z-index: 9999;
                                 }
-                                i{
+
+                                i {
                                     font-size: 30px;
                                     color: #7c2233;
                                 }
@@ -357,6 +388,7 @@
     .home {
         .home__container {
             width: 100%;
+
             .home__container__inner {
                 .swiper {
                     border-radius: 25px;
@@ -446,26 +478,30 @@
 }
 
 @media screen and (max-width: 800px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 400px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-left: 450px;
                     }
                 }
-                .list{
-                    ul{
-                        li{
+
+                .list {
+                    ul {
+                        li {
                             width: 300px;
-                            .about_product{
-                                h2{
+
+                            .about_product {
+                                h2 {
                                     font-size: 20px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 14px;
                                 }
                             }
@@ -478,27 +514,32 @@
 }
 
 @media screen and (max-width: 700px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 400px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-left: 20px;
                     }
                 }
-                .list{
-                    ul{
-                        li{
+
+                .list {
+                    ul {
+                        li {
                             width: 250px;
-                            .about_product{
+
+                            .about_product {
                                 margin-left: 5px;
-                                h2{
+
+                                h2 {
                                     font-size: 20px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 14px;
                                 }
                             }
@@ -511,29 +552,34 @@
 }
 
 @media screen and (max-width: 600px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 400px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-left: 20px;
                     }
                 }
-                .list{
-                    ul{
-                        li{
+
+                .list {
+                    ul {
+                        li {
                             width: 220px;
-                            .swiper{
+
+                            .swiper {
                                 height: 220px;
                             }
-                            .about_product{
-                                h2{
+
+                            .about_product {
+                                h2 {
                                     font-size: 20px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 14px;
                                 }
                             }
@@ -546,56 +592,67 @@
 }
 
 @media screen and (max-width: 600px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 250px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-top: 100px;
                         font-size: 12px;
                         margin-left: 20px;
-                        strong{
+
+                        strong {
                             font-size: 18px;
                         }
                     }
                 }
-                .list{
-                    h2{
+
+                .list {
+                    h2 {
                         font-size: 20px;
                     }
-                    ul{
-                        li{
+
+                    ul {
+                        li {
                             width: 180px;
-                            .swiper{
+
+                            .swiper {
                                 height: 180px;
                             }
-                            .about_product{
-                                h6{
+
+                            .about_product {
+                                h6 {
                                     margin-bottom: 2px;
                                 }
-                                h2{
+
+                                h2 {
                                     font-size: 20px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 14px;
                                 }
                             }
                         }
                     }
                 }
-                .search{
+
+                .search {
                     height: 50px;
                     margin-top: 20px;
-                    form{
-                        input{
+
+                    form {
+                        input {
                             font-size: 15px;
                             height: 40px;
                             margin-top: -20px;
                         }
-                        button{
+
+                        button {
                             width: 100px;
                             bottom: 0%;
                             height: 30px;
@@ -609,61 +666,73 @@
 }
 
 @media screen and (max-width: 460px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 250px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-top: 100px;
                         font-size: 12px;
                         margin-left: 20px;
-                        strong{
+
+                        strong {
                             font-size: 18px;
                         }
                     }
                 }
-                .list{
-                    h2{
+
+                .list {
+                    h2 {
                         font-size: 20px;
                     }
-                    ul{
-                        li{
+
+                    ul {
+                        li {
                             width: 150px;
-                            .swiper{
+
+                            .swiper {
                                 height: 150px;
                             }
-                            .about_product{
-                                h6{
+
+                            .about_product {
+                                h6 {
                                     margin-bottom: 2px;
                                     font-size: 8px;
                                 }
-                                h2{
+
+                                h2 {
                                     font-size: 12px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 10px;
                                     margin-bottom: 4px;
                                 }
-                                h3{
+
+                                h3 {
                                     font-size: 13px;
                                 }
                             }
                         }
                     }
                 }
-                .search{
+
+                .search {
                     height: 50px;
                     margin-top: 20px;
-                    form{
-                        input{
+
+                    form {
+                        input {
                             font-size: 15px;
                             height: 40px;
                             margin-top: -20px;
                         }
-                        button{
+
+                        button {
                             width: 100px;
                             bottom: 0%;
                             height: 30px;
@@ -677,64 +746,77 @@
 }
 
 @media screen and (max-width: 400px) {
-    .home{
-        .home__container{
-            .home__container__inner{
-                .swiper{
+    .home {
+        .home__container {
+            .home__container__inner {
+                .swiper {
                     height: 250px;
                 }
-                .swiper-slide{
-                    h2{
+
+                .swiper-slide {
+                    h2 {
                         margin-top: 100px;
                         font-size: 12px;
                         margin-left: 20px;
-                        strong{
+
+                        strong {
                             font-size: 18px;
                         }
                     }
                 }
-                .list{
-                    h2{
+
+                .list {
+                    h2 {
                         font-size: 20px;
                     }
-                    ul{
+
+                    ul {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        li{
+
+                        li {
                             width: 70%;
-                            .swiper{
+
+                            .swiper {
                                 height: 250px;
                             }
-                            .about_product{
-                                h6{
+
+                            .about_product {
+                                h6 {
                                     margin-bottom: 2px;
                                     font-size: 8px;
                                 }
-                                h2{
+
+                                h2 {
                                     font-size: 12px;
                                 }
-                                p{
+
+                                p {
                                     font-size: 10px;
                                     margin-bottom: 12px;
                                 }
-                                h3{
+
+                                h3 {
                                     font-size: 13px;
                                 }
                             }
                         }
                     }
                 }
-                .search{
+
+                .search {
                     height: 50px;
                     margin-top: 20px;
-                    form{
-                        input{
+
+                    form {
+                        input {
                             font-size: 15px;
                             height: 40px;
                             margin-top: -20px;
                         }
-                        button{
+
+                        button {
                             width: 100px;
                             bottom: 0%;
                             height: 30px;

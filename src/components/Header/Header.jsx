@@ -87,7 +87,7 @@ function Header() {
     <div className={scrol ? "active" : "header__sass"}>
       <div className="container">
         <div className="header__inner">
-          <h1>𝐴𝑖𝑠ℎ𝑒 & 𝑆𝑎𝑓𝑖𝑦𝑒𝑚</h1>
+          <h1>FAST & FOOD</h1>
           <ul>
             {dataPage?.map((e) => (
               <Link key={e.en} to={`/${e.en}`}>

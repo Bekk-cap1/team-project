@@ -1,7 +1,7 @@
 .active {
     position: fixed;
     top: 0;
-    z-index: 9999999;
+    z-index: 9999999999999999999999;
     height: 90px;
     width: 100%;
     background: #7c2233;
@@ -38,7 +38,7 @@
             }
 
             select {
-                width: 70px;
+                width: 100px;
                 height: 40px;
                 font-size: 22px;
                 color: #fff;
@@ -59,17 +59,18 @@
                     font-size: 22px;
                     border: none;
                     background: none;
-                    color: #7c2233;
+                    color: #fff;
                     padding: 15px 10px;
                     border-radius: 5px;
                     margin: 0 10px;
                     transition: 0.2s ease-in-out;
+                    border: 1px solid #fff;
 
 
                     &:hover {
-                        background-color: #21114b;
+                        background-color: #fff;
                         /* Зелёный фон при наведении */
-                        color: #fff;
+                        color: #000;
                         /* Белый цвет текста при наведении */
                     }
 
@@ -110,6 +111,7 @@
     width: 100%;
     height: 90px;
     background: #7c2233;
+    z-index: 999999;
     // background: linear-gradient(90deg, rgba(255, 0, 254, 1) 0%, rgba(121, 9, 94, 1) 51%, rgba(255, 0, 254, 1) 100%) repeat-x 0 100% fixed,
     //     linear-gradient(to top, #5080b1, #004e8c) fixed;
     // animation: city 10s linear infinite;
@@ -177,33 +179,22 @@
                 .basket__btn {
                     cursor: pointer;
                     font-size: 22px;
-                    border: 1px solid #000;
-                    /* Зеленая граница */
+                    border: 1px solid #fff;
                     background: none;
-                    /* Без фона */
-                    color: #000;
-                    /* Зеленый цвет текста */
+                    color: #fff;
                     padding: 15px 10px;
-                    /* Отступы внутри кнопки */
                     border-radius: 5px;
-                    /* Закругленные углы */
                     margin: 0 10px;
-                    /* Отступы с боков */
                     transition: all 0.2s ease-in-out;
-                    /* Плавный переход для всех изменений */
 
                     &:hover {
-                        background-color: #21114b;
-                        /* Зелёный фон при наведении */
-                        color: #fff;
-                        /* Белый цвет текста при наведении */
+                        background-color: #ffffff;
+                        color: #000;
                     }
 
                     &:active {
                         transform: scale(0.98);
-                        /* Уменьшение кнопки при нажатии */
                         transition: 0.2s ease-in-out;
-                        /* Плавная анимация */
                     }
                 }
 

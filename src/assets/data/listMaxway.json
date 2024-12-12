@@ -1,6 +1,6 @@
 [
     {
-        "id": 16,
+        "id": 11,
         "stock": 17,
         "stock_ru": "В наличии",
         "stock_en": "In stock",
@@ -11,15 +11,225 @@
         "price": 32000,
         "price_ru": "Цена",
         "price_en": "Price",
-        "height": 335,
-        "recall": 4.4,
-        "category": "lavash",
         "name_fastfood": "maxway",
+        "height": 335,
+        "recall": 7.3,
+        "category": "lavash",
         "images": [
             {
                 "image_id": 1,
-                "image_url": "data:image/jpeg;base64,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"
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F14225f78-e339-42bc-ae75-909d9d25da40&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Chicken Shawarma",
+        "list_name_ru": "Куриная шаурма",
+        "list_text_en": "lemon juice, yogurt, garlic, olive oil, heated dough, cucumber, tomato,sugar, plain flaur",
+        "list_text_ru": "лимонный сок, йогурт, чеснок, оливковое масло, подогретое тесто, огурец, помидор, сахар, ароматизатор",
+        "price": 29000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 350,
+        "recall": 7.2,
+        "category": "Chicken Shawarma",
+        "images": [
+            {
+                "image_id": 2,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2Fdbb583ca-0328-4035-af73-8409b158019c&w=1080&q=75"
+            }
+        ]
+    },
+
+    {
+        "id": 13,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "burger",
+        "list_name_ru": "бургеr",
+        "list_text_en": "hamburger buns, chuck, canola oil, onion, kosher salt, black pepper, red wine, lettuce leaves",
+        "list_text_ru": "булочки для гамбургеров, чак, масло канолы, лук, кошерная соль, черный перец, красное вино, листья салата",
+        "price": 20000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 250,
+        "recall": 7.1,
+        "category": "burger",
+        "images": [
+            {
+                "image_id": 3,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2Ffa034d3e-a445-4068-9475-05e71706910b&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "hotdog",
+        "list_name_ru": "xotdog",
+        "list_text_en": "sausage, fried chicken, onion, plain flaur, red pepper  tomato, cucumber, cheese, bread for xotdog, mayanez ",
+        "list_text_ru": "соус, жареная курица, лук, ароматизатор, помидоры с красным перцем, огурец, сыр, хлеб для xotdog, майанез",
+        "price": 40000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 400,
+        "recall": 7.4,
+        "category": "hotdog",
+        "images": [
+            {
+                "image_id": 4,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2Fc52a29e0-98dc-412d-863b-25de7c4f14f8&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "fri",
+        "list_name_ru": "фри",
+        "list_text_en": "potato, oil, flaurs",
+        "list_text_ru": "картофель, масло, ароматизаторы",
+        "price": 15000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 150,
+        "recall": 7.5,
+        "category": "fri",
+        "images": [
+            {
+                "image_id": 5,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2Fe238451f-6851-4554-8225-0be60c7e81c5&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "naggets",
+        "list_name_ru": "наггетс",
+        "list_text_en": "chicken, oil, flaur, salt",
+        "list_text_ru": "курица, масло, ароматизаторы, соль",
+        "price": 45000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 500,
+        "recall": 7.6,
+        "category": "naggets",
+        "images": [
+            {
+                "image_id": 6,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F2d2dd25e-9b26-42ea-8de6-0a66f7ab3c1a&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "combo",
+        "list_name_ru": "сомбо",
+        "list_text_en": "cola, fri, shaurma",
+        "list_text_ru": "кола, пятница, шаурма",
+        "price": 60000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 1000,
+        "recall": 7.7,
+        "category": "combo",
+        "images": [
+            {
+                "image_id": 7,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F26dd9766-6b77-4ff8-a7fc-798d07466d3c&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "moxito",
+        "list_name_ru": "moxito",
+        "list_text_en": "leaves of moxito, fresh water, sugar",
+        "list_text_ru": "листья моксито, пресная вода, сахар",
+        "price": 15000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 450,
+        "recall": 7.8,
+        "category": "moxito",
+        "images": [
+            {
+                "image_id": 8,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F4e142541-b7ff-46e3-8e59-d102a1e6f519&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "black tea",
+        "list_name_ru": "черный чай",
+        "list_text_en": "leaves of black tea and hot water",
+        "list_text_ru": "листья черного чая и горячая вода",
+        "price": 8000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 300,
+        "recall": 7.9,
+        "category": "black tea",
+        "images": [
+            {
+                "image_id": 9,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F3ae92eaf-c56e-4db7-9c5b-f658bc595144&w=1080&q=75"
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "stock": 17,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "sendwich",
+        "list_name_ru": "Сендвич",
+        "list_text_en": "egg, salad leaves, sausage, cheese",
+        "list_text_ru": "яйцо, листья салата, колбаса, сыр",
+        "price": 80000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "maxway",
+        "height": 500,
+        "recall": 8,
+        "category": "sendwich",
+        "images": [
+            {
+                "image_id": 10,
+                "image_url": "https://maxway.uz/_next/image?url=https%3A%2F%2Fcdn.delever.uz%2Fdelever%2F3ae92eaf-c56e-4db7-9c5b-f658bc595144&w=1080&q=75"
             }
         ]
     }
 ]
+    
+

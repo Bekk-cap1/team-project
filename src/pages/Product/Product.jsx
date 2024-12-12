@@ -12,6 +12,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import jsonFile1 from "../../assets/data/listEvos.json";
 import jsonFile2 from "../../assets/data/listMaxway.json";
 import jsonFile3 from "../../assets/data/listOqtepa.json";
+import evoslogo from "../../assets/image/evoslogo.jpg"
+import maxway_logo from "../../assets/image/maxwaylogo3.png"
+import oqtepa_logo from "../../assets/image/oqtepalogo1.jpg" 
 
 const listArr = []
 const listArr2 = []
@@ -43,26 +46,52 @@ function Product() {
   const SearchDataList = []
   const [searchData, setSearchData] = useState()
 
-  const search__item = (e, i) => {
-    e.preventDefault()
-
-    const elSearch = e.target.elements.inp.value
-    setCount(count + 1)
-    listData?.map((e, i) => {
-      if (e.category.toLowerCase().includes(elSearch.toLowerCase())) {
-        SearchDataList.push(e)
-      }
-      else if (e[`list_name_${lan}`].toLowerCase().includes(elSearch.toLowerCase())) {
-        SearchDataList.push(e)
-      }
-      else if (e[`list_text_${lan}`].toLowerCase().includes(elSearch.toLowerCase())) {
-        SearchDataList.push(e)
-      } else if (elSearch == '') {
-        SearchDataList.push(e)
-      }
-    })
-    setSearchData(SearchDataList)
-  }
+  const search__item = (e) => {
+    e.preventDefault();
+    const elSearch = e.target.elements.inp.value.toLowerCase();
+  
+    let result;
+  
+    if (elSearch.trim() == "") {
+      // Если инпут пустой, возвращаем первые элементы из каждой базы
+      result = [
+        ...jsonFile1,
+        ...jsonFile2,
+        ...jsonFile3,
+      ].filter(Boolean); // Убираем undefined, если базы могут быть пустыми
+    } else {
+      // Фильтруем данные из каждой базы
+      const filteredData1 = jsonFile1.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      const filteredData2 = jsonFile2.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      const filteredData3 = jsonFile3.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      // Получаем по одному элементу из каждого списка
+      result = [
+        filteredData1[0],
+        filteredData2[0],
+        filteredData3[0],
+      ].filter(Boolean); // Убираем undefined, если в одном из списков нет подходящих элементов
+    }
+  
+    // Сохраняем результат
+    console.log(result);
+    setSearchData(result);
+  };
+  
   // listData.map((e, i) => {
   //   const mat = Math.floor(((i) / 12) + 1)
   //   if (listPagenation.find((item) => item == mat)) {
@@ -104,18 +133,17 @@ function Product() {
     setCategArr(categoryArr)
   }
 
-
   const selType = (e) => {
     const el = e.target.value; // Получаем выбранное значение
     setData([])
     setCount(count + 1); // Увеличиваем счетчик
-    
+
     // Определяем массив для сортировки
     const currentData = searchData?.length ? searchData : categArr?.length ? categArr : listData;
-  
+
     // Копируем данные, чтобы избежать изменения оригинального массива
     const sortedData = [...currentData];
-  
+
     // Выполняем сортировку в зависимости от выбранного типа
     if (el === "ascending") {
       sortedData.sort((a, b) => a.price - b.price);
@@ -125,16 +153,16 @@ function Product() {
       sortedData.sort((a, b) => b.id - a.id);
     } else {
       sortedData.sort((a, b) => a.id - b.id);
-    }    
+    }
 
     // Устанавливаем отсортированные данные в состояние
     setData(sortedData);
-    
+
   };
-  
+
 
   if (data) {
-    listProduct.push(data) 
+    listProduct.push(data)
   }
   if (categArr) {
     listProduct.push(categArr)
@@ -172,7 +200,7 @@ function Product() {
       })
     }
   }
-  else if(listProduct.length == 0){    
+  else if (listProduct.length == 0) {
     listProduct.push(listData.slice(pagination * 12 - 12, pagination * 12))
     listData.map((e, i) => {
       const mat = Math.floor(((i) / 12) + 1)
@@ -182,7 +210,7 @@ function Product() {
         listPagenation.push(mat)
       }
     })
-  }else{
+  } else {
     listProduct.push(listData.slice(pagination * 12 - 12, pagination * 12))
     listData.map((e, i) => {
       const mat = Math.floor(((i) / 12) + 1)
@@ -333,6 +361,56 @@ function Product() {
                         <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
                         <h2>{e[`list_name_${lan}`]}</h2>
                         <p>{e[`list_text_${lan}`]}</p>
+                        <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.height / Math.max(...listHome.map((el) => el.height))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{e.height}гр
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.height))) - e.height) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.height))) - e.height)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.height / Math.max(...listHome.map((el) => el.height))) * 100)}%</span>
+                        </div>
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.price / Math.max(...listHome.map((el) => el.price))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{e.price}сум
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.price))) - e.price) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.price))) - e.price)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.price / Math.max(...listHome.map((el) => el.price))) * 100)}%</span>
+                        </div>
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.recall / Math.max(...listHome.map((el) => el.recall))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>Оценка: {e.recall}
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.recall / Math.max(...listHome.map((el) => el.recall))) * 100)}%</span>
+                        </div>
+
                         <div>
                           <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
                           {
@@ -341,12 +419,22 @@ function Product() {
                                 event.stopPropagation() // Предотвращаем срабатывание onClick на <li>
                                 pushKorzinka(e.id)
                               }}>
-                                <i className={korzinka.some((item) => item.id === e.id) ? "bi bi-cart-check" : "bi bi-cart-plus"}></i>
+                                {
+                                  korzinka.some((item) => item.id === e.id) ?
+                                    <i className="bi bi-cart-check"></i>
+                                    :
+                                    <i className="bi bi-cart-plus"></i>
+                                }
                               </button> : <button onClick={(event) => {
                                 event.stopPropagation(); // Предотвращаем срабатывание onClick на <li>
                                 navigate('/signin');
                               }}>
-                                <i className={korzinka.some((item) => item.id === e.id) ? "bi bi-cart-check" : "bi bi-cart-plus"}></i>
+                                {
+                                  korzinka.some((item) => item.id === e.id) ?
+                                    <i className="bi bi-cart-check"></i>
+                                    :
+                                    <i className="bi bi-cart-plus"></i>
+                                }
                               </button>
                           }
                         </div>
@@ -380,6 +468,56 @@ function Product() {
                         <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
                         <h2>{e[`list_name_${lan}`]}</h2>
                         <p>{e[`list_text_${lan}`]}</p>
+                        <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.height / Math.max(...listHome.map((el) => el.height))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{e.height}гр
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.height))) - e.height) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.height))) - e.height)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.height / Math.max(...listHome.map((el) => el.height))) * 100)}%</span>
+                        </div>
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.price / Math.max(...listHome.map((el) => el.price))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{e.price}сум
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.price))) - e.price) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.price))) - e.price)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.price / Math.max(...listHome.map((el) => el.price))) * 100)}%</span>
+                        </div>
+
+                        <div className={listProduct[0].length === 3 ? "progress-bar" : "none"}>
+                          <div className="progress-fill" style={{ width: `${(e.recall / Math.max(...listHome.map((el) => el.recall))) * 100}%` }}>
+                          </div>
+                        </div>
+                        <div className={listProduct[0].length == 3 ? 'indikator' : 'none'}>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>Оценка: {e.recall}
+                            {
+                              Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall) !== 0 ?
+                                <strong>
+                                  <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall)}
+                                </strong> : ''
+                            }
+                          </span>
+                          <span className={listProduct[0].length === 3 ? "" : "none"}>{Math.round((e.recall / Math.max(...listHome.map((el) => el.recall))) * 100)}%</span>
+                        </div>
+
                         <div>
                           <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
                           {
@@ -388,12 +526,22 @@ function Product() {
                                 event.stopPropagation() // Предотвращаем срабатывание onClick на <li>
                                 pushKorzinka(e.id)
                               }}>
-                                <i className={korzinka.some((item) => item.id === e.id) ? "bi bi-cart-check" : "bi bi-cart-plus"}></i>
+                                {
+                                  korzinka.some((item) => item.id === e.id) ?
+                                    <i className="bi bi-cart-check"></i>
+                                    :
+                                    <i className="bi bi-cart-plus"></i>
+                                }
                               </button> : <button onClick={(event) => {
                                 event.stopPropagation(); // Предотвращаем срабатывание onClick на <li>
                                 navigate('/signin');
                               }}>
-                                <i className={korzinka.some((item) => item.id === e.id) ? "bi bi-cart-check" : "bi bi-cart-plus"}></i>
+                                {
+                                  korzinka.some((item) => item.id === e.id) ?
+                                    <i className="bi bi-cart-check"></i>
+                                    :
+                                    <i className="bi bi-cart-plus"></i>
+                                }
                               </button>
                           }
                         </div>
@@ -407,7 +555,9 @@ function Product() {
               <ul>
                 {
                   listPagenation?.map((e, i) => (
+                    listProduct[0]?.length !== 3 ?
                     <button onClick={() => setPagination(e)}>{e}</button>
+                    : ''
                   ))
                 }
               </ul>

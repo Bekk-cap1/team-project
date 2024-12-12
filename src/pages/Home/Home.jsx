@@ -62,37 +62,47 @@ function Home() {
   const search__item = (e) => {
     e.preventDefault();
     const elSearch = e.target.elements.inp.value.toLowerCase();
-
-    // Фильтруем данные из каждой базы
-    const filteredData1 = jsonFile1.filter((item) =>
-      item.category.toLowerCase().includes(elSearch) ||
-      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
-      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
-    );
-
-    const filteredData2 = jsonFile2.filter((item) =>
-      item.category.toLowerCase().includes(elSearch) ||
-      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
-      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
-    );
-
-    const filteredData3 = jsonFile3.filter((item) =>
-      item.category.toLowerCase().includes(elSearch) ||
-      item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
-      item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
-    );
-
-    // Получаем по одному элементу из каждого списка
-    const result = [
-      filteredData1[0],
-      filteredData2[0],
-      filteredData3[0]
-    ].filter(Boolean); // Убираем undefined, если в одном из списков нет подходящих элементов
-
+  
+    let result;
+  
+    if (elSearch.trim() == "") {
+      // Если инпут пустой, возвращаем первые элементы из каждой базы
+      result = [
+        ...jsonFile1,
+        ...jsonFile2,
+        ...jsonFile3,
+      ].filter(Boolean); // Убираем undefined, если базы могут быть пустыми
+    } else {
+      // Фильтруем данные из каждой базы
+      const filteredData1 = jsonFile1.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      const filteredData2 = jsonFile2.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      const filteredData3 = jsonFile3.filter((item) =>
+        item.category.toLowerCase().includes(elSearch) ||
+        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
+        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
+      );
+  
+      // Получаем по одному элементу из каждого списка
+      result = [
+        filteredData1[0],
+        filteredData2[0],
+        filteredData3[0],
+      ].filter(Boolean); // Убираем undefined, если в одном из списков нет подходящих элементов
+    }
+  
     // Сохраняем результат
     console.log(result);
-
-    setSearchData(result);
+    setSearchData(result.length == 3 ? result : result.slice(-10,-1));
   };
 
 
@@ -153,9 +163,9 @@ function Home() {
               onAutoplayTimeLeft={onAutoplayTimeLeft}
               className="mySwiper"
             >
-              <SwiperSlide    ><h2><strong>119 000</strong> сум</h2></SwiperSlide>
-              <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
-              <SwiperSlide><h2><strong>119 000</strong> сум</h2></SwiperSlide>
+              <SwiperSlide> </SwiperSlide>
+              <SwiperSlide> </SwiperSlide>
+              <SwiperSlide> </SwiperSlide>
               <div className="autoplay-progress" slot="container-end">
                 <svg viewBox="0 0 48 48" ref={progressCircle}>
                   <circle cx="24" cy="24" r="20"></circle>
@@ -201,12 +211,55 @@ function Home() {
                     <h2>{e[`list_name_${lan}`]}</h2>
                     <p>{e[`list_text_${lan}`]}</p>
                     <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
-                    <div className='progress-bar'>
-                      <div className="progress-fill" style={{ width: `${e.id}%` }}>
 
+                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
+                      <div className="progress-fill" style={{ width: `${(e.height / Math.max(...listHome.map((el) => el.height))) * 100}%` }}>
                       </div>
                     </div>
-                    <span>{e.id}%</span>
+                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
+                      <span className={listHome.length === 3 ? "" : "none"}>{e.height}гр
+                        {
+                          Math.round((Math.max(...listHome.map((el) => el.height))) - e.height) !== 0 ?
+                            <strong>
+                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.height))) - e.height)}
+                            </strong> : ''
+                        }
+                      </span>
+                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.height / Math.max(...listHome.map((el) => el.height))) * 100)}%</span>
+                    </div>
+
+                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
+                      <div className="progress-fill" style={{ width: `${(e.price / Math.max(...listHome.map((el) => el.price))) * 100}%` }}>
+                      </div>
+                    </div>
+                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
+                      <span className={listHome.length === 3 ? "" : "none"}>{e.price}сум
+                        {
+                          Math.round((Math.max(...listHome.map((el) => el.price))) - e.price) !== 0 ?
+                            <strong>
+                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.price))) - e.price)}
+                            </strong> : ''
+                        }
+                      </span>
+                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.price / Math.max(...listHome.map((el) => el.price))) * 100)}%</span>
+                    </div>
+
+                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
+                      <div className="progress-fill" style={{ width: `${(e.recall / Math.max(...listHome.map((el) => el.recall))) * 100}%` }}>
+                      </div>
+                    </div>
+                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
+                      <span className={listHome.length === 3 ? "" : "none"}>Оценка: {e.recall}
+                        {
+                          Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall) !== 0 ?
+                            <strong>
+                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall)}
+                            </strong> : ''
+                        }
+                      </span>
+                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.recall / Math.max(...listHome.map((el) => el.recall))) * 100)}%</span>
+                    </div>
+
                     <div>
                       <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
                       {

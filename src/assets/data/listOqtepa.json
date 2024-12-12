@@ -1,25 +1,235 @@
 [
     {
-        "id": 15,
+        "id": 21,
         "stock": 37,
         "stock_ru": "В наличии",
         "stock_en": "In stock",
-        "list_name_en": "Original large lavash",
-        "list_name_ru": "Оригинальный большой лаваш",
-        "list_text_en": "Juicy pieces of grilled beef and ripe tomatoes, golden potato chips, tomato oriental sauce with fresh onions and greens in the freshest classic lavash.",
-        "list_text_ru": "Сочные кусочки говядины гриль и спелых помидоров, золотистые картофельные чипсы, томатный восточный соус со свежим луком и зеленью в свежайшем классическом лаваше.",
-        "price": 31000,
+        "list_name_en": "Lavash standard classic",
+        "list_name_ru": "Лаваш стандартный классический",
+        "list_text_en": "Lavash, corned beef, tomatoes, chips, tomato sauce, mayonnaise",
+        "list_text_ru": "Лаваш, донар говяжий, помидоры, чипсы, томатный соус, майонез",
+        "price": 30000,
         "price_ru": "Цена",
         "price_en": "Price",
-        "recall": 4.4,
-        "height": 355,
-        "category": "lavash",
         "name_fastfood": "oqtepa",
+        "height": 405,
+        "recall": 2.1,
+        "category": "lavash",
         "images": [
             {
                 "image_id": 1,
-                "image_url": "https://cc.oqtepalavash.uz/api/image/aa44149a-db72-44ca-8749-18b7d87cb51e.png"
+                "image_url": "https://cc.oqtepalavash.uz/api/image/293071af-6768-40c7-b559-1a0264e76565.png"
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "Chicken Shawarma",
+        "list_name_ru": "Куриная шаурма",
+        "list_text_en": "lemon juice, yogurt, garlic, olive oil, heated dough, cucumber, tomato,sugar, plain flaur",
+        "list_text_ru": "лимонный сок, йогурт, чеснок, оливковое масло, подогретое тесто, огурец, помидор, сахар, ароматизатор",
+        "price": 21000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 250,
+        "recall": 2.2,
+        "category": "Chicken Shawarma",
+        "images": [
+            {
+                "image_id": 2,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/8b9eb5ea-c6f2-45b6-9533-c515213d2d97.png"
+            }
+        ]
+    },
+
+    {
+        "id": 23,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "burger",
+        "list_name_ru": "бургеr",
+        "list_text_en": "hamburger buns, chuck, canola oil, onion, kosher salt, black pepper, red wine, lettuce leaves",
+        "list_text_ru": "булочки для гамбургеров, чак, масло канолы, лук, кошерная соль, черный перец, красное вино, листья салата",
+        "price": 19000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 300,
+        "recall": 2.3,
+        "category": "burger",
+        "images": [
+            {
+                "image_id": 3,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/58dc04b8-5122-4936-92e8-759138a73645.png"
+            }
+        ]
+    },
+    {
+        "id": 24,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "hotdog",
+        "list_name_ru": "xotdog",
+        "list_text_en": "sausage, fried chicken, onion, plain flaur, red pepper  tomato, cucumber, cheese, bread for xotdog, mayanez ",
+        "list_text_ru": "соус, жареная курица, лук, ароматизатор, помидоры с красным перцем, огурец, сыр, хлеб для xotdog, майанез",
+        "price": 35000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 400,
+        "recall": 3.4,
+        "category": "hotdog",
+        "images": [
+            {
+                "image_id": 4,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/83e921f1-d164-42f2-8113-d470d7c7c003.JPG"
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "fri",
+        "list_name_ru": "фри",
+        "list_text_en": "potato, oil, flaurs",
+        "list_text_ru": "картофель, масло, ароматизаторы",
+        "price": 25000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 250,
+        "recall": 2.5,
+        "category": "fri",
+        "images": [
+            {
+                "image_id": 5,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/3dfd6500-8544-417a-a978-5d23ec1996b7.png"
+            }
+        ]
+    },
+    {
+        "id": 26,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "naggets",
+        "list_name_ru": "наггетс",
+        "list_text_en": "chicken, oil, flaur, salt",
+        "list_text_ru": "курица, масло, ароматизаторы, соль",
+        "price": 40000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 440,
+        "recall": 2.6,
+        "category": "naggets",
+        "images": [
+            {
+                "image_id": 6,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/ed5b922f-5c6a-456f-a7ad-f77b421213b2.png"
+            }
+        ]
+    },
+    {
+        "id": 27,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "combo",
+        "list_name_ru": "сомбо",
+        "list_text_en": "cola, fri, shaurma",
+        "list_text_ru": "кола, пятница, шаурма",
+        "price": 59000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 900,
+        "recall": 2.7,
+        "category": "combo",
+        "images": [
+            {
+                "image_id": 7,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/95f970a3-c83d-497e-a005-a91a826974d0.jpg"
+            }
+        ]
+    },
+    {
+        "id": 28,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "moxito",
+        "list_name_ru": "moxito",
+        "list_text_en": "leaves of moxito, fresh water, sugar",
+        "list_text_ru": "листья моксито, пресная вода, сахар",
+        "price": 20000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 360,
+        "recall": 2.8,
+        "category": "moxito",
+        "images": [
+            {
+                "image_id": 8,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/f41ed0e5-e0b3-4bbe-a5fc-2f316b511512.png"
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "black tea",
+        "list_name_ru": "черный чай",
+        "list_text_en": "leaves of black tea and hot water",
+        "list_text_ru": "листья черного чая и горячая вода",
+        "price": 12000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 400,
+        "recall": 2.9,
+        "category": "lavash",
+        "images": [
+            {
+                "image_id": 9,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/62e0c818-08a2-4f99-a505-6405ac472868.png"
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "stock": 37,
+        "stock_ru": "В наличии",
+        "stock_en": "In stock",
+        "list_name_en": "sendwich",
+        "list_name_ru": "Сендвич",
+        "list_text_en": "egg, salad leaves, sausage, cheese",
+        "list_text_ru": "яйцо, листья салата, колбаса, сыр",
+        "price": 73000,
+        "price_ru": "Цена",
+        "price_en": "Price",
+        "name_fastfood": "oqtepa",
+        "height": 500,
+        "recall": 8,
+        "category": "sendwich",
+        "images": [
+            {
+                "image_id": 10,
+                "image_url": "https://cc.oqtepalavash.uz/api/image/1ae2fb62-962a-446a-9bdf-59b5eec280e6.png"
             }
         ]
     }
 ]
+    
+
