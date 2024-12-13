@@ -265,7 +265,7 @@ function Home() {
                       {
                         user ?
                           <button onClick={(event) => {
-                            event.stopPropagation() // Предотвращаем срабатывание onClick на <li>
+                            event.stopPropagation()
                             pushKorzinka(e.id)
                           }}>
                             {
@@ -275,7 +275,7 @@ function Home() {
                                 <i className="bi bi-cart-plus"></i>
                             }
                           </button> : <button onClick={(event) => {
-                            event.stopPropagation(); // Предотвращаем срабатывание onClick на <li>
+                            event.stopPropagation();
                             navigate('/signin');
                           }}>
                             {
