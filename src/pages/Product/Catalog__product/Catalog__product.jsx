@@ -22,6 +22,8 @@ function Catalog__product() {
     const [id, setId] = useState()
     const [listData, setListData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [cartItems, setCartItems] = useState([])
+    const [products, setProducts] = useState([])
 
     const local = useLocation()
     const navig = local.pathname.split('/products/').join('')
@@ -56,6 +58,7 @@ function Catalog__product() {
             })
             .then((data) => {
                 setListData(data);
+                setProducts(data);
                 setIsLoading(false)
             })
             .catch((error) => {
@@ -92,22 +95,64 @@ function Catalog__product() {
     useEffect(() => {
     }, [korzinka]);
 
-    const pushKorzinka = (id) => {
-        setKorzinka((prevKorzinka) => {
-            const itemExists = prevKorzinka.some((item) => item.id === id);
-            if (itemExists) {
-                console.log("Этот элемент уже существует в корзине");
-                return prevKorzinka;
-            } else {
-                const itemToAdd = searchData?.length ? searchData.find((item) => item.id === id) : listData.find((item) => item.id === id);
-                if (itemToAdd) {
-                    console.log("Элемент добавлен в корзину:", itemToAdd);
-                    return [...prevKorzinka, { ...itemToAdd, quantity: 1 }];
-                }
-            }
-            return prevKorzinka;
-        });
-    };
+    const pushKorzinka = async (id) => {
+        if (!userId) {
+          console.log("Пользователь не авторизован");
+          return;
+        }
+    
+        try {
+          const userResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`);
+          if (!userResponse.ok) {
+            throw new Error('Ошибка получения данных пользователя');
+          }
+    
+          const userData = await userResponse.json();
+          const userCart = userData.cart || [];
+    
+          if (userCart.some(item => item.id === id)) {
+            console.log("Этот товар уже в корзине");
+            return;
+          }
+    
+          const itemToAdd = products.find(item => item.id === id);
+          if (!itemToAdd) {
+            console.log("Товар не найден");
+            return;
+          }
+    
+          const newItem = {
+            ...itemToAdd,
+            quantity: 1,
+            cartId: Date.now().toString()
+          };
+    
+          const updatedCart = [...userCart, newItem];
+    
+          const updateResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ...userData,
+              cart: updatedCart
+            })
+          });
+    
+          if (!updateResponse.ok) {
+            throw new Error('Ошибка обновления корзины');
+          }
+    
+          setKorzinka(updatedCart);
+          setCartItems(updatedCart);
+    
+          console.log('Товар успешно добавлен в корзину');
+    
+        } catch (error) {
+          console.error('Ошибка:', error);
+        }
+      };
 
     if (isLoading) {
         return (
