@@ -1,3 +1,5 @@
+### `npm i` after that `npm start`
+
 
 ### Description
 This code creates data structures for products and their images, serializes this data into JSON format, and saves the result into a file. The nlohmann::json library is used to work with JSON in C++.
