@@ -28,30 +28,31 @@ function SignIn() {
       .catch((error) => {
         console.error("Ошибка при выполнении запроса:", error);
       });
-  },[]);
-  
+  }, []);
+
   const checkUser = (e) => {
     e.preventDefault();
     const login = e.target.elements.login.value.trim();
     const password = e.target.elements.password.value.trim();
 
-    if (login !== "" && password !== "") {
-        // Проверка на админа
-        if (userData.login === "admin" && userData.password === "admin123") {
-            sessionStorage.setItem("isAdmin", "true");
-            navigate("/");
-            return;
-        }
+    // Проверка на админа
 
-        const user = userData?.find(item => item.login === login);
-        const pass = userData?.find(item => item.password === password);
-        
-        if (user && pass) {
-            sessionStorage.setItem("userId", pass?.id);
-            navigate("/");
-        } else {
-            setCheckText(true);
-        }
+    const user = userData?.find(item => item.login === login);
+    const pass = userData?.find(item => item.password === password);
+    if (login !== "" && password !== "") {
+      if (login === "admin" && password === "admin123") {
+        sessionStorage.setItem("isAdmin", "true");
+        sessionStorage.setItem("userId", pass?.id);
+        navigate("/");
+        return;
+      }
+
+      if (user && pass) {
+        sessionStorage.setItem("userId", pass?.id);
+        navigate("/");
+      } else {
+        setCheckText(true);
+      }
     }
   };
 

@@ -128,7 +128,6 @@ function Product() {
   };
 
   if (data) {
-    console.log(data);
     listProduct.push(data.slice(pagination * 12 - 12, pagination * 12))
     data.map((e, i) => {
       const mat = Math.floor(((i) / 12) + 1)
@@ -218,7 +217,7 @@ function Product() {
           setKorzinka(userCartItems);
         })
         .catch(err => {
-          console.error('Ошибка загрузки корзины:', err);
+
         });
     }
   }, []);
@@ -344,7 +343,6 @@ function Product() {
       localStorage.setItem('korzinka', JSON.stringify(korzinka));
     }
   }, [korzinka]);
-  console.log(pagination);
 
   const [newProduct, setNewProduct] = useState({
     list_name_ru: '',
@@ -620,7 +618,7 @@ function Product() {
                 {
                   listPagenation?.map((e, i) => (
                     paginationTrue !== true ?
-                      <button onClick={() => setPagination(e)}>{e}</button>
+                      <button key={i} onClick={() => setPagination(e)}>{e}</button>
                       : ''
                   ))
                 }
