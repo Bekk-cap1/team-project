@@ -13,6 +13,9 @@ import { listData } from './assets/data/data';
 import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 import Korzinka from './pages/Korzinka/korzinka';
+import Dataa from './pages/addData/addData';
+import Profile from './pages/Profile/Profile';
+
 
 function App() {
 
@@ -20,7 +23,7 @@ function App() {
   const {number, setNumber} = useContext(Context)
   const {userId} = useParams()
   let navig = local.pathname.split('/products/').join('') 
-  useEffect(()=>{
+  useEffect(()=>{ 
     setNumber(navig)
   }, [navig])
   const alona = '/products/' + number
@@ -48,6 +51,8 @@ function App() {
         <Route path='/korzinka' element={<Korzinka/>}/>
         <Route path='/signup' element={<SignUp/>}/> 
         <Route path='/signin' element={<SignIn/>}/> 
+        <Route path='/addData' element={<Dataa/>}/>
+        <Route path='/profile' element={<Profile/>}/>
       </Routes>
       {local.pathname == '/signin' || local.pathname == '/signup' ? <Footer style={{ position: 'absolute', bottom: '0', left: '0', right: '0' }}/> : <Footer/>} 
     </div>

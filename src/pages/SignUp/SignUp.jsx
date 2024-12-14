@@ -4,50 +4,41 @@ import "./SignUp.scss";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-
-
   const navigate = useNavigate();
   const registerUser = (e) => {
     e.preventDefault();
     const el = e.target.elements;
 
-    // Проверка, что поля не пустые
     if (
       el.login.value.trim() !== "" &&
       el.email.value.trim() !== "" &&
       el.password.value.trim() !== ""
     ) {
-      // Проверка, что пароли совпадают
       if (el.password.value === el.passwordConfirm.value) {
-        // Отправка данных на сервер
         fetch("https://638208329842ca8d3c9f7558.mockapi.io/user_data", {
           method: "POST",
           headers: {
-            "Content-type": "application/json", // Отправляем данные в формате JSON
-            Accept: "application/json", // Сервер должен принимать JSON
-            "Access-Control-Allow-Origin": "*", // Разрешаем доступ со всех источников
+            "Content-type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
             email: el.email.value,
             login: el.login.value,
             password: el.password.value,
+            cart: [] // Добавляем пустой массив корзины для нового пользователя
           }),
         })
           .then((res) => {
-            // Проверка статуса ответа от сервера
             if (!res.ok) {
               throw new Error(
                 `Ошибка сервера: ${res.status} ${res.statusText}`
               );
             }
-            return res.json(); // Преобразуем ответ в JSON
+            return res.json();
           })
           .then((data) => {
-            console.log(); // Логируем данные от сервера
-
-            // Проверка, если сервер вернул success: true
             if (data && data.id) {
-              // Очистка инпутов после успешной отправки данных
               el.email.value = "";
               el.login.value = "";
               el.password.value = "";
@@ -64,39 +55,29 @@ function SignUp() {
             alert("Произошла ошибка при отправке данных.");
           });
       } else {
-        // Если пароли не совпадают
         alert("Пароли не совпадают!");
       }
     } else {
-      // Если одно из полей пустое
       alert("Пожалуйста, заполните все поля.");
     }
   };
 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
-  // Состояния для хранения ошибок стилей (красный или зеленый)
   const [passwordValid, setPasswordValid] = useState(null);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(null);
-
-  // Состояния для отображения сообщений об ошибке
   const [passwordError, setPasswordError] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Для подтверждения пароля
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Функция для изменения пароля
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  // Функция для изменения подтверждения пароля
   const handlePasswordConfirmChange = (e) => {
     setPasswordConfirm(e.target.value);
   };
 
-  // Проверка пароля при потере фокуса
   const handlePasswordBlur = () => {
     if (password.length < 8) {
       setPasswordValid(false);
@@ -107,7 +88,6 @@ function SignUp() {
     }
   };
 
-  // Проверка подтверждения пароля при потере фокуса
   const handlePasswordConfirmBlur = () => {
     if (passwordConfirm !== password) {
       setConfirmPasswordValid(false);
@@ -116,7 +96,6 @@ function SignUp() {
     }
   };
 
-  // Стиль для пароля в зависимости от валидности
   const passwordStyle =
     passwordValid === false
       ? { border: "1px solid red" }
@@ -124,7 +103,6 @@ function SignUp() {
       ? { border: "1px solid green" }
       : {};
 
-  // Стиль для подтверждения пароля
   const confirmPasswordStyle =
     confirmPasswordValid === false || password.length < 8
       ? { border: "1px solid red" }
@@ -136,7 +114,6 @@ function SignUp() {
     setShowPassword(!showPassword);
   };
 
-  // Функция для переключения видимости подтверждения пароля
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
@@ -150,7 +127,7 @@ function SignUp() {
           <input type="text" placeholder="Login" name="login" required />
           <div className="pass">
             <input
-              type={showPassword ? "text" : "password"} // Меняем тип на текст или пароль
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="password"
               minLength="8"
@@ -158,21 +135,20 @@ function SignUp() {
               required
               value={password}
               onChange={handlePasswordChange}
-              onBlur={handlePasswordBlur} // Срабатывает, когда поле теряет фокус
-              style={passwordStyle} // Применяем стили
+              onBlur={handlePasswordBlur}
+              style={passwordStyle}
             />
             <i
-              className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`} // В зависимости от состояния меняем иконку
+              className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
               onClick={togglePasswordVisibility}
             ></i>
           </div>
-          {/* Сообщение об ошибке, если пароль слишком короткий */}
           {passwordError && (
             <p style={{ color: "red", fontSize: "14px" }}>{passwordError}</p>
           )}
           <div className="pass">
             <input
-              type={showConfirmPassword ? "text" : "password"} // Меняем тип на текст или пароль
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Password Again"
               name="passwordConfirm"
               minLength="8"
@@ -180,18 +156,16 @@ function SignUp() {
               required
               value={passwordConfirm}
               onChange={handlePasswordConfirmChange}
-              onBlur={handlePasswordConfirmBlur} // Срабатывает, когда поле теряет фокус
-              style={confirmPasswordStyle} // Применяем стили
+              onBlur={handlePasswordConfirmBlur}
+              style={confirmPasswordStyle}
             />
             <i
               className={`fas ${
                 showConfirmPassword ? "fa-eye-slash" : "fa-eye"
-              }`} // В зависимости от состояния меняем иконку
+              }`}
               onClick={toggleConfirmPasswordVisibility}
             ></i>
           </div>
-          {/* Поле для подтверждения пароля */}
-          {/* Сообщение об ошибке, если пароли не совпадают */}
           {confirmPasswordValid === false && (
             <p style={{ color: "red", fontSize: "14px" }}>
               Пароли не совпадают

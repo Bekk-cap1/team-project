@@ -38,27 +38,22 @@ function Header() {
 
   // Загружаем данные пользователя с API
   useEffect(() => {
-    fetch("https://638208329842ca8d3c9f7558.mockapi.io/user_data", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Ошибка при выполнении запроса");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setUserData(data); // Логируем полученные данные
-      })
-      .catch((error) => {
-        console.error("Ошибка при выполнении запроса:", error);
-      });
-  }, []);
+    if (userId) {
+      fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Ошибка при выполнении запроса");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setUserData([data]);
+        })
+        .catch((error) => {
+          console.error("Ошибка при выполнении запроса:", error);
+        });
+    }
+  }, [userId]);
 
   // Перенаправление на главную страницу, если текущий путь "/Home"
   useEffect(() => {
@@ -71,7 +66,7 @@ function Header() {
   const select_langu = (e) => {
     const selectedLanguage = e.target.value;
     setLanguage(selectedLanguage);
-    setContextLanguage(selectedLanguage); // Обновляем контекстный язык
+    setContextLanguage(selectedLanguage);
     window.localStorage.setItem("language", selectedLanguage);
   };
 
@@ -79,6 +74,12 @@ function Header() {
   const menuHam = () => {
     setMenu(!menu);
     document.body.style.overflow = menu ? "auto" : "hidden";
+  };
+
+  // Выход из аккаунта
+  const handleLogout = () => {
+    window.sessionStorage.removeItem("userId");
+    navigate("/signin");
   };
 
   const user = userData.find((e) => e.id === userId);
@@ -99,9 +100,16 @@ function Header() {
           <div className="account__login">
             {user ? (
               <div className="account__login__user">
-                <button onClick={()=>navigate('/korzinka')} className="basket__btn ">В корзину <i class="bi bi-basket"></i></button>
-                <h4>{user.login}</h4>
-                <img src={User__foto} alt="User" />
+                <button onClick={()=>navigate('/korzinka')} className="btn btn-outline-light me-2 basket__btn">
+                  В корзину <i className="bi bi-cart-fill me-1"></i>
+                </button>
+                <div onClick={() => navigate('/profile')} className="d-flex align-items-center" style={{cursor: 'pointer'}}>
+                  <h4 className="mb-0 me-2">{user.login}</h4>
+                  <img src={user.photo || User__foto} alt="User" className="rounded-circle" style={{width: '50px', height: '50px'}} />
+                </div>
+                <button onClick={handleLogout} className="btn btn-outline-light ms-2 basket__btn">
+                  <i className="bi bi-box-arrow-right"></i>
+                </button>
               </div>
             ) : (
               <div className="signin__signup">
@@ -121,40 +129,6 @@ function Header() {
           </div>
         </div>
 
-        <div className="media">
-          <div className="header__inner__media">
-            <h1>𝐴𝑖𝑠ℎ𝑒 & 𝑆𝑎𝑓𝑖𝑦𝑒𝑚</h1>
-
-            <p onClick={menuHam}>
-              <span ref={men} className={menu ? "span__active" : ""} />
-            </p>
-          </div>
-
-          <div className={menu ? "active__menu" : "none"}>
-            <ul>
-              {dataPage?.map((e) => (
-                <Link key={e.en} to={`/${e.en}`} onClick={() => setMenu(false)}>
-                  <strong>{e[`${language}`]}</strong>
-                </Link>
-              ))}
-            </ul>
-
-            <div className="account__login">
-              <div className="sign__up__buttons">
-                <Link to="/signin">
-                  <button className="login-btn">Log In</button>
-                </Link>
-                <Link to="/signup">
-                  <button className="login-btn">Sign Up</button>
-                </Link>
-              </div>
-              <select value={language} onChange={select_langu}>
-                <option value="ru">Ru</option>
-                <option value="en">Eng</option>
-              </select>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

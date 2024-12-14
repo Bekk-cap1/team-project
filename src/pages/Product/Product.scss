@@ -7,6 +7,41 @@
         padding: 0;
 
         &__inner {
+            .loading1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 400px;
+                flex-direction: column;
+                gap: 20px;
+
+                .spinner {
+                    width: 50px;
+                    height: 50px;
+                    border: 5px solid #f3f3f3;
+                    border-top: 5px solid #7c2233;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+
+                .loading-text {
+                    font-size: 20px;
+                    color: #7c2233;
+                    font-weight: bold;
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                @keyframes pulse {
+                    0% { opacity: 0.6; }
+                    50% { opacity: 1; }
+                    100% { opacity: 0.6; }
+                }
+            }
+
             header {
                 width: 100%;
 
@@ -84,7 +119,26 @@
                     margin-top: 50px;
                     margin-bottom: 20px;
                     width: 100%;
+                    .add-product-btn {
+                        margin-right: 50px;
+                        padding: 10px 20px;
+                        font-size: 18px;
+                        background-color: #7c2233;
+                        color: #fff;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
 
+                        &:hover {
+                            background-color: #5d1926;
+                            transform: translateY(-2px);
+                        }
+
+                        &:active {
+                            transform: translateY(0);
+                        }
+                    }
                     div {
                         form {
                             display: flex;
@@ -191,7 +245,7 @@
                     li {
                         border-radius: 25px;
                         box-shadow: 0 0 31px 8px rgba(186, 175, 186, 1);
-                        width: 350px;
+                        width:420px;
                         margin: 20px;
                         cursor: pointer;
                         position: relative;
@@ -342,6 +396,7 @@
                                     border-radius: 15px;
                                     cursor: pointer;
                                     z-index: 9999;
+                                    margin-bottom: 20px;
                                 }
 
                                 i {
@@ -380,4 +435,18 @@
             }
         }
     }
+}
+
+.add-product-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  
+  &:hover {
+    background-color: #45a049;
+  }
 }

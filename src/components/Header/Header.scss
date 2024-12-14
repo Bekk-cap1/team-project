@@ -22,7 +22,7 @@
             justify-content: space-between;
             align-items: center;
             color: #fff;
-
+            padding-top: 10px;
             ul {
                 display: flex;
                 list-style: none;
@@ -53,6 +53,28 @@
             .account__login {
                 display: flex;
                 align-items: center;
+                .logout-btn {
+                    cursor: pointer;
+                    font-size: 22px;
+                    border: none;
+                    background: none;
+                    color: #fff;
+                    padding: 15px 10px;
+                    border-radius: 5px;
+                    margin: 0 10px;
+                    transition: 0.2s ease-in-out;
+                    border: 1px solid #fff;
+
+                    &:hover {
+                        background-color: #fff;
+                        color: #000;
+                    }
+
+                    &:active {
+                        transform: scale(0.98);
+                        transition: 0.2s ease-in-out;
+                    }
+                }
 
                 .basket__btn {
                     cursor: pointer;
@@ -65,7 +87,6 @@
                     margin: 0 10px;
                     transition: 0.2s ease-in-out;
                     border: 1px solid #fff;
-
 
                     &:hover {
                         background-color: #fff;
@@ -140,6 +161,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-align: center;
+            padding: 10px;
             color: #fff;
 
             ul {
@@ -175,6 +198,31 @@
             .account__login {
                 display: flex;
                 align-items: center;
+                &__user {
+                    display: block;
+                    margin: 0 20px;
+                }
+                .logout-btn {
+                    cursor: pointer;
+                    font-size: 22px;
+                    border: 1px solid #fff;
+                    background: none;
+                    color: #fff;
+                    padding: 15px 10px;
+                    border-radius: 5px;
+                    margin: 0 10px;
+                    transition: all 0.2s ease-in-out;
+
+                    &:hover {
+                        background-color: #ffffff;
+                        color: #000;
+                    }
+
+                    &:active {
+                        transform: scale(0.98);
+                        transition: 0.2s ease-in-out;
+                    }
+                }
 
                 .basket__btn {
                     cursor: pointer;
@@ -248,8 +296,7 @@
         transition: 0.5s ease-in-out;
 
         .container {
-            margin: 0 20px;
-
+            margin: 0 auto;
             .header__inner {
                 display: none;
             }
@@ -384,7 +431,7 @@
 
     .header__sass {
         .container {
-            margin: 0 20px;
+            margin: 0 auto;
 
             .header__inner {
                 display: none;

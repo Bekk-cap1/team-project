@@ -8,16 +8,153 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { dataPage, dataPoisk, dataSearch } from '../../assets/data/data';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../assets/Context/Context';
-import jsonFile1 from "../../assets/data/listEvos.json";
-import jsonFile2 from "../../assets/data/listMaxway.json";
-import jsonFile3 from "../../assets/data/listOqtepa.json";
 import evoslogo from "../../assets/image/evoslogo.jpg"
 import maxway_logo from "../../assets/image/maxwaylogo3.png"
 import oqtepa_logo from "../../assets/image/oqtepalogo1.jpg"
+import { Modal, Button, Form } from 'react-bootstrap';
 
 function Home() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminView, setAdminView] = useState('products');
+  const [banners, setBanners] = useState([]);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(null);
+  const [paginationTrue, setPaginationTrue] = useState(false);
+  const [newProduct, setNewProduct] = useState({
+    list_name_ru: '',
+    list_name_en: '',
+    list_text_ru: '',
+    list_text_en: '',
+    price: 0,
+    stock: 0,
+    height: 0,
+    recall: 0,
+    name_fastfood: 'evos',
+    images: []
+  });
 
-  const listData = [...jsonFile1, ...jsonFile2, ...jsonFile3]
+  useEffect(() => {
+    // Проверка прав админа
+    const adminStatus = sessionStorage.getItem('isAdmin') === 'true';
+    setIsAdmin(adminStatus);
+
+    setIsLoading(true);
+    fetch('https://638208329842ca8d3c9f7558.mockapi.io/team-project')
+      .then(res => res.json())
+      .then(data => {
+        // Получаем по одному товару от каждого фастфуда для сравнения
+        const evosProduct = data.find(item => item.name_fastfood === 'evos');
+        const maxwayProduct = data.find(item => item.name_fastfood === 'maxway');
+        const oqtepaProduct = data.find(item => item.name_fastfood === 'oqtepa');
+        
+        // Добавляем найденные товары в начало списка
+        const compareProducts = [evosProduct, maxwayProduct, oqtepaProduct].filter(Boolean);
+        const otherProducts = data.filter(item => 
+          !compareProducts.some(cp => cp.id === item.id)
+        );
+        
+        const sortedData = [...compareProducts, ...otherProducts].slice(0, 9);
+        setProducts(sortedData);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error('Ошибка загрузки данных:', err);
+        setIsLoading(false);
+      });
+
+    if (userId) {
+      fetch('https://638208329842ca8d3c9f7558.mockapi.io/cart')
+        .then(res => res.json())
+        .then(data => {
+          const userCartItems = data.filter(item => item.userId === userId);
+          setCartItems(userCartItems);
+          setKorzinka(userCartItems);
+        })
+        .catch(err => {
+          console.error('Ошибка загрузки корзины:', err);
+        });
+    }
+  }, []);
+
+  const handleAddProduct = async () => {
+    try {
+      const response = await fetch('https://638208329842ca8d3c9f7558.mockapi.io/team-project', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newProduct)
+      });
+
+      if (response.ok) {
+        const addedProduct = await response.json();
+        setProducts([...products, addedProduct]);
+        setShowAddModal(false);
+        setNewProduct({
+          list_name_ru: '',
+          list_name_en: '',
+          list_text_ru: '',
+          list_text_en: '',
+          price: 0,
+          stock: 0,
+          height: 0,
+          recall: 0,
+          name_fastfood: 'evos',
+          images: []
+        });
+      }
+    } catch (error) {
+      console.error('Ошибка при добавлении товара:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (id, event) => {
+    event.stopPropagation();
+    if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
+      try {
+        const response = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/team-project/${id}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) {
+          setProducts(products.filter(product => product.id !== id));
+        }
+      } catch (error) {
+        console.error('Ошибка при удалении:', error);
+      }
+    }
+  };
+
+  const handleEditProduct = (product, event) => {
+    event.stopPropagation();
+    setCurrentProduct(product);
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      const response = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/team-project/${currentProduct.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(currentProduct)
+      });
+
+      if (response.ok) {
+        setProducts(products.map(p =>
+          p.id === currentProduct.id ? currentProduct : p
+        ));
+        setShowEditModal(false);
+      }
+    } catch (error) {
+      console.error('Ошибка при обновлении:', error);
+    }
+  };
 
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
@@ -50,7 +187,7 @@ function Home() {
         return res.json();
       })
       .then((data) => {
-        setUserData(data); // Логируем полученные данные
+        setUserData(data);
       })
       .catch((error) => {
         console.error("Ошибка при выполнении запроса:", error);
@@ -62,86 +199,102 @@ function Home() {
   const search__item = (e) => {
     e.preventDefault();
     const elSearch = e.target.elements.inp.value.toLowerCase();
-  
+
     let result;
-  
+
     if (elSearch.trim() == "") {
-      // Если инпут пустой, возвращаем первые элементы из каждой базы
-      result = [
-        ...jsonFile1,
-        ...jsonFile2,
-        ...jsonFile3,
-      ].filter(Boolean); // Убираем undefined, если базы могут быть пустыми
+      result = products;
     } else {
-      // Фильтруем данные из каждой базы
-      const filteredData1 = jsonFile1.filter((item) =>
-        item.category.toLowerCase().includes(elSearch) ||
+      result = products.filter((item) =>
+        item.category?.toLowerCase().includes(elSearch) ||
         item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
         item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
       );
-  
-      const filteredData2 = jsonFile2.filter((item) =>
-        item.category.toLowerCase().includes(elSearch) ||
-        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
-        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
-      );
-  
-      const filteredData3 = jsonFile3.filter((item) =>
-        item.category.toLowerCase().includes(elSearch) ||
-        item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
-        item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
-      );
-  
-      // Получаем по одному элементу из каждого списка
-      result = [
-        filteredData1[0],
-        filteredData2[0],
-        filteredData3[0],
-      ].filter(Boolean); // Убираем undefined, если в одном из списков нет подходящих элементов
     }
-  
-    // Сохраняем результат
-    console.log(result);
-    setSearchData(result.length == 3 ? result : result.slice(-10,-1));
+
+    setSearchData(result);
   };
 
+  const listHome = searchData.length ? searchData : products;
 
+  const { korzinka, setKorzinka } = useContext(Context);
 
-  const listHome = searchData.length ? searchData : listData.slice(-10, -1);
-
-  const { korzinka, setKorzinka } = useContext(Context); // Инициализация как пустого массива
-  const pushKorzinka = (id) => {
-    // Проверяем, есть ли элемент в корзине
-    const itemExists = korzinka.some((item) => item.id === id);
-    if (itemExists) {
-      console.log("Этот элемент уже существует в корзине");
-    } else {
-      const itemToAdd = listHome.find((item) => item.id === id);
-      if (itemToAdd) {
-        // Добавляем элемент с полем quantity
-        setKorzinka((prevKorzinka) => [
-          ...prevKorzinka,
-          { ...itemToAdd, quantity: 1 }
-        ]);
-        console.log("Элемент добавлен в корзину:", itemToAdd);
-      }
+  const pushKorzinka = async (id) => {
+    if (!userId) {
+      console.log("Пользователь не авторизован");
+      return;
     }
-    console.log("Текущая корзина:", korzinka);
-  };
-  useEffect(() => {
+
     try {
-      const savedKorzinka = JSON.parse(localStorage.getItem('korzinka')) || [];
-      setKorzinka(savedKorzinka);
+      const userResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`);
+      if (!userResponse.ok) {
+        throw new Error('Ошибка получения данных пользователя');
+      }
+
+      const userData = await userResponse.json();
+      const userCart = userData.cart || [];
+
+      if (userCart.some(item => item.id === id)) {
+        console.log("Этот товар уже в корзине");
+        return;
+      }
+
+      const itemToAdd = listHome.find(item => item.id === id);
+      if (!itemToAdd) {
+        console.log("Товар не найден");
+        return;
+      }
+
+      const newItem = {
+        ...itemToAdd,
+        quantity: 1,
+        cartId: Date.now().toString()
+      };
+
+      const updatedCart = [...userCart, newItem];
+
+      const updateResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...userData,
+          cart: updatedCart
+        })
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error('Ошибка обновления корзины');
+      }
+
+      setKorzinka(updatedCart);
+      setCartItems(updatedCart);
+
+      console.log('Товар успешно добавлен в корзину');
+
     } catch (error) {
-      console.error('Ошибка чтения из localStorage:', error);
+      console.error('Ошибка:', error);
     }
-  }, [setKorzinka]);
+  };
 
   useEffect(() => {
-    if (korzinka.length > 0) {
-      localStorage.setItem('korzinka', JSON.stringify(korzinka));
+    if (userId) {
+      fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`)
+        .then(res => res.json())
+        .then(userData => {
+          const userCart = userData.cart || [];
+          setCartItems(userCart);
+          setKorzinka(userCart);
+        })
+        .catch(err => {
+          console.error('Ошибка загрузки корзины:', err);
+        });
+    } else {
+      setCartItems([]);
+      setKorzinka([]);
     }
-  }, [korzinka]);
+  }, [userId]);
 
   return (
     <div className='home'>
@@ -163,9 +316,19 @@ function Home() {
               onAutoplayTimeLeft={onAutoplayTimeLeft}
               className="mySwiper"
             >
-              <SwiperSlide> </SwiperSlide>
-              <SwiperSlide> </SwiperSlide>
-              <SwiperSlide> </SwiperSlide>
+              {banners.length > 0 ? (
+                banners.map((banner, idx) => (
+                  <SwiperSlide key={idx}>
+                    <img src={banner} alt={`Баннер ${idx + 1}`} />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <>
+                  <SwiperSlide> </SwiperSlide>
+                  <SwiperSlide> </SwiperSlide>
+                  <SwiperSlide> </SwiperSlide>
+                </>
+              )}
               <div className="autoplay-progress" slot="container-end">
                 <svg viewBox="0 0 48 48" ref={progressCircle}>
                   <circle cx="24" cy="24" r="20"></circle>
@@ -183,117 +346,402 @@ function Home() {
           </div>
 
           <div className="list">
-            <h2 className='assort'>Ассортимент</h2>
+            <div className="list-header">
+              <h2 className='assort'>Ассортимент</h2>
+              {isAdmin && (
+                <button 
+                  onClick={() => setShowAddModal(true)}
+                  className="add-product-btn"
+                >
+                  Добавить товар
+                </button>
+              )}
+            </div>
             <hr />
-            <ul>
-              {listHome.map((e) => (
-                <li key={e.id} className={listHome.length == 3 ? "three_items" : ''} onClick={() => navigate(`/products/${e.id}`)}>
-                  <Swiper
-                    spaceBetween={30}
-                    centeredSlides={true}
-                    autoplay={{
-                      delay: 2500,
-                      disableOnInteraction: false,
-                    }}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    navigation={true}
-                    modules={[Autoplay, Pagination, Navigation]}
-                    className="mySwiper"
-                  >
-                    {e.images?.map((t) => (
-                      <SwiperSlide key={t.image_id}><img src={t.image_url} alt="" /></SwiperSlide>
-                    ))}
-                  </Swiper>
-                  <div className="about_product">
-                    <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
-                    <h2>{e[`list_name_${lan}`]}</h2>
-                    <p>{e[`list_text_${lan}`]}</p>
-                    <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
+            {isLoading ? (
+              <div className="loading">
+              <div className="spinner"></div> 
+              <div className="loading-text">Загрузка...</div>
+            </div>
+            ) : (
+              <>
+                {paginationTrue && (
+                  <div className="comparison-section">
+                    <h3>Сравнение товаров</h3>
+                    <ul className="comparison-list">
+                      {listHome.slice(0, 3).map((e) => (
+                        <li key={e.id} className="three_items" onClick={() => navigate(`/products/${e.id}`)}>
+                          <Swiper
+                            spaceBetween={30}
+                            centeredSlides={true}
+                            autoplay={{
+                              delay: 2500,
+                              disableOnInteraction: false,
+                            }}
+                            pagination={{
+                              clickable: true,
+                            }}
+                            navigation={true}
+                            modules={[Autoplay, Pagination, Navigation]}
+                            className="mySwiper"
+                          >
+                            {e.images?.map((t) => (
+                              <SwiperSlide key={t.image_id}><img src={t.image_url} alt="" /></SwiperSlide>
+                            ))}
+                          </Swiper>
+                          <div className="about_product">
+                            <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
+                            <h2>{e[`list_name_${lan}`]}</h2>
+                            <p>{e[`list_text_${lan}`]}</p>
+                            <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
 
-                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
-                      <div className="progress-fill" style={{ width: `${(e.height / Math.max(...listHome.map((el) => el.height))) * 100}%` }}>
-                      </div>
-                    </div>
-                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
-                      <span className={listHome.length === 3 ? "" : "none"}>{e.height}гр
-                        {
-                          Math.round((Math.max(...listHome.map((el) => el.height))) - e.height) !== 0 ?
-                            <strong>
-                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.height))) - e.height)}
-                            </strong> : ''
-                        }
-                      </span>
-                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.height / Math.max(...listHome.map((el) => el.height))) * 100)}%</span>
-                    </div>
+                            <div className="progress-bar">
+                              <div className="progress-fill" style={{ width: `${(e.height / Math.max(...listHome.slice(0, 3).map((el) => el.height))) * 100}%` }}>
+                              </div>
+                            </div>
+                            <div className="indikator">
+                              <span>{e.height}гр
+                                {
+                                  Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.height))) - e.height) !== 0 ?
+                                    <strong>
+                                      <i className="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.height))) - e.height)}
+                                    </strong> : ''
+                                }
+                              </span>
+                              <span>{Math.round((e.height / Math.max(...listHome.slice(0, 3).map((el) => el.height))) * 100)}%</span>
+                            </div>
 
-                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
-                      <div className="progress-fill" style={{ width: `${(e.price / Math.max(...listHome.map((el) => el.price))) * 100}%` }}>
-                      </div>
-                    </div>
-                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
-                      <span className={listHome.length === 3 ? "" : "none"}>{e.price}сум
-                        {
-                          Math.round((Math.max(...listHome.map((el) => el.price))) - e.price) !== 0 ?
-                            <strong>
-                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.price))) - e.price)}
-                            </strong> : ''
-                        }
-                      </span>
-                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.price / Math.max(...listHome.map((el) => el.price))) * 100)}%</span>
-                    </div>
+                            <div className="progress-bar">
+                              <div className="progress-fill" style={{ width: `${(e.price / Math.max(...listHome.slice(0, 3).map((el) => el.price))) * 100}%` }}>
+                              </div>
+                            </div>
+                            <div className="indikator">
+                              <span>{e.price}сум
+                                {
+                                  Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.price))) - e.price) !== 0 ?
+                                    <strong>
+                                      <i className="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.price))) - e.price)}
+                                    </strong> : ''
+                                }
+                              </span>
+                              <span>{Math.round((e.price / Math.max(...listHome.slice(0, 3).map((el) => el.price))) * 100)}%</span>
+                            </div>
 
-                    <div className={listHome.length === 3 ? "progress-bar" : "none"}>
-                      <div className="progress-fill" style={{ width: `${(e.recall / Math.max(...listHome.map((el) => el.recall))) * 100}%` }}>
-                      </div>
-                    </div>
-                    <div className={listHome.length == 3 ? 'indikator' : 'none'}>
-                      <span className={listHome.length === 3 ? "" : "none"}>Оценка: {e.recall}
-                        {
-                          Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall) !== 0 ?
-                            <strong>
-                              <i class="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.map((el) => el.recall))) - e.recall)}
-                            </strong> : ''
-                        }
-                      </span>
-                      <span className={listHome.length === 3 ? "" : "none"}>{Math.round((e.recall / Math.max(...listHome.map((el) => el.recall))) * 100)}%</span>
-                    </div>
+                            <div className="progress-bar">
+                              <div className="progress-fill" style={{ width: `${(e.recall / Math.max(...listHome.slice(0, 3).map((el) => el.recall))) * 100}%` }}>
+                              </div>
+                            </div>
+                            <div className="indikator">
+                              <span>Оценка: {e.recall}
+                                {
+                                  Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.recall))) - e.recall) !== 0 ?
+                                    <strong>
+                                      <i className="bi bi-caret-down-fill"></i>{Math.round((Math.max(...listHome.slice(0, 3).map((el) => el.recall))) - e.recall)}
+                                    </strong> : ''
+                                }
+                              </span>
+                              <span>{Math.round((e.recall / Math.max(...listHome.slice(0, 3).map((el) => el.recall))) * 100)}%</span>
+                            </div>
 
-                    <div>
-                      <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
-                      {
-                        user ?
-                          <button onClick={(event) => {
-                            event.stopPropagation()
-                            pushKorzinka(e.id)
-                          }}>
-                            {
-                              korzinka.some((item) => item.id === e.id) ?
-                                <i className="bi bi-cart-check"></i>
-                                :
-                                <i className="bi bi-cart-plus"></i>
-                            }
-                          </button> : <button onClick={(event) => {
-                            event.stopPropagation();
-                            navigate('/signin');
-                          }}>
-                            {
-                              korzinka.some((item) => item.id === e.id) ?
-                                <i className="bi bi-cart-check"></i>
-                                :
-                                <i className="bi bi-cart-plus"></i>
-                            }
-                          </button>
-                      }
-                    </div>
+                            <div>
+                              <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
+                              <button onClick={(event) => {
+                                event.stopPropagation();
+                                if (userId) {
+                                  pushKorzinka(e.id);
+                                } else {
+                                  navigate('/signin');
+                                }
+                              }}>
+                                {userId && korzinka.some(item => item.id === e.id) ? (
+                                  <i className="bi bi-cart-check"></i>
+                                ) : (
+                                  <i className="bi bi-cart-plus"></i>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </li>
-              ))}
-            </ul>
+                )}
+
+                <ul style={paginationTrue !== true ? {} : {display: 'none'}}>
+                  {listHome.map((e) => (
+                    <li key={e.id} onClick={() => navigate(`/products/${e.id}`)}>
+                      <Swiper
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                          delay: 2500,
+                          disableOnInteraction: false,
+                        }}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
+                      >
+                        {e.images?.map((t) => (
+                          <SwiperSlide key={t.image_id}><img src={t.image_url} alt="" /></SwiperSlide>
+                        ))}
+                      </Swiper>
+                      <div className="about_product">
+                        <h6>{e[`stock_${lan}`]} : {e.stock}</h6>
+                        <h2>{e[`list_name_${lan}`]}</h2>
+                        <p>{e[`list_text_${lan}`]}</p>
+                        <img src={e.name_fastfood == 'evos' ? evoslogo : e.name_fastfood == 'maxway' ? maxway_logo : oqtepa_logo} alt="" className='fastfood_logo' />
+
+                        <div>
+                          <h3>{e[`price_${lan}`]} : {e.price}сум</h3>
+                          <button onClick={(event) => {
+                            event.stopPropagation();
+                            if (userId) {
+                              pushKorzinka(e.id);
+                            } else {
+                              navigate('/signin');
+                            }
+                          }}>
+                            {userId && korzinka.some(item => item.id === e.id) ? (
+                              <i className="bi bi-cart-check"></i>
+                            ) : (
+                              <i className="bi bi-cart-plus"></i>
+                            )}
+                          </button>
+                        </div>
+                        {isAdmin == true ? (
+                          <div className="admin-buttons">
+                            <button
+                              className="edit-btn"
+                              onClick={(event) => handleEditProduct(e, event)}
+                            >
+                              <i className="bi bi-pencil"></i>
+                            </button>
+                            <button
+                              className="delete-btn"
+                              onClick={(event) => handleDeleteProduct(e.id, event)}
+                            >
+                              <i className="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </div>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)} style={{zIndex: 99999}}>
+        <Modal.Header closeButton>
+          <Modal.Title>Редактировать товар / Edit Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Название на русском / Name in Russian</Form.Label>
+              <Form.Control
+                type="text"
+                value={currentProduct?.list_name_ru || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  list_name_ru: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Name in English</Form.Label>
+              <Form.Control
+                type="text" 
+                value={currentProduct?.list_name_en || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  list_name_en: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Описание на русском / Description in Russian</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={currentProduct?.list_text_ru || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  list_text_ru: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Description in English</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={currentProduct?.list_text_en || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  list_text_en: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Цена / Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={currentProduct?.price || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  price: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Количество на складе / Stock Amount</Form.Label>
+              <Form.Control
+                type="number"
+                value={currentProduct?.stock || ''}
+                onChange={(e) => setCurrentProduct({
+                  ...currentProduct,
+                  stock: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            Отмена / Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Сохранить / Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)} style={{zIndex: 99999}}>
+        <Modal.Header closeButton>
+          <Modal.Title>Добавить новый товар / Add New Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Название на русском / Name in Russian</Form.Label>
+              <Form.Control
+                type="text"
+                value={newProduct.list_name_ru}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  list_name_ru: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Name in English</Form.Label>
+              <Form.Control
+                type="text"
+                value={newProduct.list_name_en}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  list_name_en: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Описание на русском / Description in Russian</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={newProduct.list_text_ru}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  list_text_ru: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Description in English</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={newProduct.list_text_en}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  list_text_en: e.target.value
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Цена / Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={newProduct.price}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  price: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Количество на складе / Stock Amount</Form.Label>
+              <Form.Control
+                type="number"
+                value={newProduct.stock}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  stock: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Вес (в граммах) / Weight (in grams)</Form.Label>
+              <Form.Control
+                type="number"
+                value={newProduct.height}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  height: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Оценка / Rating</Form.Label>
+              <Form.Control
+                type="number"
+                value={newProduct.recall}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  recall: Number(e.target.value)
+                })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Фастфуд / Fastfood</Form.Label>
+              <Form.Select
+                value={newProduct.name_fastfood}
+                onChange={(e) => setNewProduct({
+                  ...newProduct,
+                  name_fastfood: e.target.value
+                })}
+              >
+                <option value="evos">Evos</option>
+                <option value="maxway">Maxway</option>
+                <option value="oqtepa">Oqtepa</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            Отмена / Cancel
+          </Button>
+          <Button variant="primary" onClick={handleAddProduct}>
+            Добавить / Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

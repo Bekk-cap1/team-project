@@ -11,37 +11,44 @@ function SignIn() {
     fetch("https://638208329842ca8d3c9f7558.mockapi.io/user_data", {
       method: "GET",
       headers: {
-        "Content-type": "application/json", // Тип данных, которые отправляются
-        Accept: "application/json", // Тип данных, которые принимаются
-        "Access-Control-Allow-Origin": "*", // Разрешение на доступ со всех источников
+        "Content-type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Ошибка при выполнении запроса");
         }
-        return res.json(); // Преобразуем ответ в JSON
+        return res.json();
       })
       .then((data) => {
-        setUserData(data); // Логируем полученные данные
+        setUserData(data);
       })
       .catch((error) => {
         console.error("Ошибка при выполнении запроса:", error);
       });
   },[]);
+  
   const checkUser = (e) => {
     e.preventDefault();
-    if (e.target.elements.login.value.trim() !== "" && e.target.elements.password.value.trim() !== "") {
-        const user = userData?.find(
-            (item) => item.login === e.target.elements.login.value.trim()
-        );
-        const pass = userData?.find(
-            (item) => item.password === e.target.elements.password.value.trim()
-        );
+    const login = e.target.elements.login.value.trim();
+    const password = e.target.elements.password.value.trim();
+
+    if (login !== "" && password !== "") {
+        // Проверка на админа
+        if (userData.login === "admin" && userData.password === "admin123") {
+            sessionStorage.setItem("isAdmin", "true");
+            navigate("/");
+            return;
+        }
+
+        const user = userData?.find(item => item.login === login);
+        const pass = userData?.find(item => item.password === password);
         
         if (user && pass) {
-            navigate("/");
             sessionStorage.setItem("userId", pass?.id);
+            navigate("/");
         } else {
             setCheckText(true);
         }

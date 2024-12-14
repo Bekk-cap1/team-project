@@ -10,52 +10,162 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Modal } from '@mui/material';
 
 function Basket() {
-
     const { korzinka, setKorzinka } = useContext(Context)
     const lan = window.localStorage.getItem('language');
-    const [count, setCount] = useState(1)
-    console.log(korzinka);
+    const userId = window.sessionStorage.getItem("userId");
+    const [userData, setUserData] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
+        fetch("https://638208329842ca8d3c9f7558.mockapi.io/user_data", {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Ошибка при выполнении запроса");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setUserData(data);
+                const user = data.find(u => u.id === userId);
+                if (user && user.cart) {
+                    setKorzinka(user.cart);
+                }
+            })
+            .catch((error) => {
+                console.error("Ошибка при выполнении запроса:", error);
+            });
+    }, [userId, setKorzinka]);
+
+    const removeFromCart = async (cartId) => {
+        if (!userId) {
+            console.log("Пользователь не авторизован");
+            return;
+        }
+
         try {
-            const savedKorzinka = JSON.parse(localStorage.getItem('korzinka')) || [];
-            setKorzinka(savedKorzinka);
-        } catch (error) {
-            console.error('Ошибка чтения из localStorage:', error);
-        }
-    }, [setKorzinka]);
+            // Получаем текущие данные пользователя
+            const userResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`);
+            if (!userResponse.ok) {
+                throw new Error('Ошибка получения данных пользователя');
+            }
+            
+            const userData = await userResponse.json();
+            const userCart = userData.cart || [];
 
-    useEffect(() => {
-        if (korzinka.length > 0) {
-            localStorage.setItem('korzinka', JSON.stringify(korzinka));
+            // Удаляем товар из корзины
+            const updatedCart = userCart.filter(item => item.cartId !== cartId);
+
+            // Обновляем данные пользователя
+            const updateResponse = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...userData,
+                    cart: updatedCart
+                })
+            });
+
+            if (!updateResponse.ok) {
+                throw new Error('Ошибка обновления корзины');
+            }
+
+            // Обновляем локальное состояние
+            setKorzinka(updatedCart);
+            setCartItems(updatedCart);
+            
+            console.log('Товар успешно удален из корзины');
+
+        } catch (error) {
+            console.error('Ошибка при удалении товара:', error);
         }
-    }, [korzinka]);
-    // const product = listData.find((item) => item.id == productIdToFind);
-    const removeFromKorzinka = (id) => {
-        setKorzinka((prev) => {
-            const updatedKorzinka = prev.filter((item) => item.id !== id);
-            localStorage.setItem('korzinka', JSON.stringify(updatedKorzinka)); // Обновление localStorage
-            return updatedKorzinka;
-        });
     };
 
+    // Обновим useEffect для периодической синхронизации данных
+    useEffect(() => {
+        const syncCart = async () => {
+            if (userId) {
+                try {
+                    const response = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`);
+                    const userData = await response.json();
+                    const userCart = userData.cart || [];
+                    setCartItems(userCart);
+                    setKorzinka(userCart);
+                } catch (err) {
+                    console.error('Ошибка синхронизации корзины:', err);
+                }
+            }
+        };
 
-    const updateQuantity = (id, newQuantity) => {
-        setKorzinka((prev) =>
-            prev.map((item) =>
-                item.id === id ? { ...item, quantity: newQuantity } : item
-            )
-        );
+        syncCart();
+        // Синхронизируем каждые 5 секунд
+        const interval = setInterval(syncCart, 5000);
+
+        return () => clearInterval(interval);
+    }, [userId]);
+
+    const updateQuantity = async (id, newQuantity) => {
+        if (newQuantity < 1) return;
+
+        try {
+            const user = userData.find(u => u.id === userId);
+            if (user) {
+                const updatedCart = user.cart.map(item =>
+                    item.id === id ? { ...item, quantity: newQuantity } : item
+                );
+                
+                await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...user,
+                        cart: updatedCart
+                    })
+                });
+
+                setKorzinka(updatedCart);
+            }
+        } catch (error) {
+            console.error('Ошибка при обновлении количества:', error);
+        }
     };
 
     const [deliver, setDeliver] = useState(false)
-    const handlePayment = (event) => {
-        event.preventDefault(); // Останавливаем стандартное поведение формы
-        setDeliver(true); // Устанавливаем состояние "оплата завершена"
-        alert('Оплата успешно завершена! Доставка уже в пути.'); // Сообщение пользователю
-        setTimeout(() => setDeliver(false), 5000); // Скрыть сообщение через 5 секунд
-    };
+    const handlePayment = async (event) => {
+        event.preventDefault();
+        try {
+            const user = userData.find(u => u.id === userId);
+            if (user) {
+                await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/user_data/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...user,
+                        cart: []
+                    })
+                });
 
+                setDeliver(true);
+                alert('Оплата успешно завершена! Доставка уже в пути.');
+                setKorzinka([]);
+                setTimeout(() => setDeliver(false), 5000);
+            }
+        } catch (error) {
+            console.error('Ошибка при оформлении заказа:', error);
+        }
+    };
 
     return (
         <div>
@@ -109,23 +219,23 @@ function Basket() {
                                         Купить
                                     </button>
                                     <button
-                                        onClick={() => removeFromKorzinka(e.id)}
+                                        onClick={() => removeFromCart(e.cartId)}
                                         className="remove-button"
                                     >
                                         Удалить
                                     </button>
                                 </div>
 
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Доставка</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">Доставка</h5>
+                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div className="modal-body">
                                                 <form className="form" onSubmit={handlePayment}>
                                                     <input type="text" placeholder="Имя получателя" required />
                                                     <input type="text" placeholder="Введите адрес доставки" required />
@@ -134,7 +244,7 @@ function Basket() {
                                                     <input type="number" placeholder="Срок годности" required />
                                                     <input type="number" placeholder="CVV/CVC код" required />
                                                     <h4>Оплатить {e.price * e.quantity}сум ?</h4>
-                                                    <button type="submit" >Оплатить</button>
+                                                    <button type="submit">Оплатить</button>
                                                 </form>
                                             </div>
                                         </div>
