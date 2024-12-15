@@ -350,7 +350,7 @@ function Home() {
               <h2 className='assort'>Ассортимент</h2>
               {isAdmin && (
                 <button 
-                  onClick={() => setShowAddModal(true)}
+                  onClick={() => navigate('/addData')}
                   className="add-product-btn"
                 >
                   Добавить товар
@@ -485,7 +485,7 @@ function Home() {
                         className="mySwiper"
                       >
                         {e.images?.map((t) => (
-                          <SwiperSlide key={t.image_id}><img src={t.image_url} alt="" /></SwiperSlide>
+                          <SwiperSlide key={t.image_id}><img src={t.image_url} style={{marginRight: '0'}} alt="" /></SwiperSlide>
                         ))}
                       </Swiper>
                       <div className="about_product">
@@ -742,6 +742,15 @@ function Home() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <div className="fixed-basket" onClick={() => navigate('/korzinka')}>
+        <div className="basket-icon">
+          <i className="bi bi-cart3"></i>
+          {korzinka.length > 0 && (
+            <span className="basket-count">{korzinka.length}</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

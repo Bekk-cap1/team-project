@@ -15,6 +15,31 @@ function Basket() {
     const userId = window.sessionStorage.getItem("userId");
     const [userData, setUserData] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [cardNumber, setCardNumber] = useState('');
+    const [cardHolder, setCardHolder] = useState('');
+    const [expiryDate, setExpiryDate] = useState('');
+    const [cvv, setCvv] = useState('');
+    const [isCardFlipped, setIsCardFlipped] = useState(false);
+
+    const handleCardNumberChange = (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        let formattedValue = '';
+        for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+                formattedValue += ' ';
+            }
+            formattedValue += value[i];
+        }
+        setCardNumber(formattedValue);
+    };
+
+    const handleExpiryDateChange = (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        }
+        setExpiryDate(value);
+    };
 
     useEffect(() => {
         fetch("https://638208329842ca8d3c9f7558.mockapi.io/user_data", {
@@ -236,14 +261,61 @@ function Basket() {
                                                 </button>
                                             </div>
                                             <div className="modal-body">
+                                                <div className="card-container">
+                                                    <div className={`card ${isCardFlipped ? 'is-flipped' : ''}`}>
+                                                        <div className="card-front">
+                                                            <div className="card-number">{cardNumber || '#### #### #### ####'}</div>
+                                                            <div className="card-holder">{cardHolder || 'ИМЯ ДЕРЖАТЕЛЯ КАРТЫ'}</div>
+                                                            <div className="card-expiry">{expiryDate || 'MM/ГГ'}</div>
+                                                        </div>
+                                                        <div className="card-back">
+                                                            <div className="cvv-strip"></div>
+                                                            <div className="cvv-number">{cvv || '***'}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <form className="form" onSubmit={handlePayment}>
-                                                    <input type="text" placeholder="Имя получателя" required />
-                                                    <input type="text" placeholder="Введите адрес доставки" required />
-                                                    <input type="number" placeholder="Номер телефона" required />
-                                                    <input type="number" placeholder="Номер карты" required />
-                                                    <input type="number" placeholder="Срок годности" required />
-                                                    <input type="number" placeholder="CVV/CVC код" required />
-                                                    <h4>Оплатить {e.price * e.quantity}сум ?</h4>
+                                                    <div className="card-input-container">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Номер карты"
+                                                            value={cardNumber}
+                                                            onChange={handleCardNumberChange}
+                                                            maxLength="19"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="card-input-container">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Имя держателя карты"
+                                                            value={cardHolder}
+                                                            onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="card-input-container">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="MM/ГГ"
+                                                            value={expiryDate}
+                                                            onChange={handleExpiryDateChange}
+                                                            maxLength="5"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="card-input-container">
+                                                        <input
+                                                            type="password"
+                                                            placeholder="CVV"
+                                                            value={cvv}
+                                                            onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))}
+                                                            onFocus={() => setIsCardFlipped(true)}
+                                                            onBlur={() => setIsCardFlipped(false)}
+                                                            maxLength="3"
+                                                            required
+                                                        />
+                                                    </div>
                                                     <button type="submit">Оплатить</button>
                                                 </form>
                                             </div>

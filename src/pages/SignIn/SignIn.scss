@@ -10,6 +10,22 @@
         align-items: center;
         justify-content: center;
         height: 62vh;
+
+        @media (max-width: 1024px) {
+            width: 80%;
+            height: 70vh;
+        }
+
+        @media (max-width: 768px) {
+            width: 90%;
+            height: 80vh;
+        }
+
+        @media (max-width: 480px) {
+            width: 95%;
+            height: 90vh;
+        }
+
         form{
             margin-top: 40px;
             display: flex;
@@ -19,6 +35,15 @@
             flex-direction: column;
             width: 70%;
             margin: 0 auto;
+
+            @media (max-width: 768px) {
+                width: 85%;
+            }
+
+            @media (max-width: 480px) {
+                width: 95%;
+            }
+
             input{
                 width: 80%;
                 height: 60px;
@@ -26,6 +51,19 @@
                 padding-left: 20px;
                 font-size: 24px;
                 margin: 20px;
+
+                @media (max-width: 768px) {
+                    width: 90%;
+                    height: 50px;
+                    font-size: 20px;
+                }
+
+                @media (max-width: 480px) {
+                    width: 95%;
+                    height: 45px;
+                    font-size: 18px;
+                    margin: 15px;
+                }
             }
             button{
                 width: 50%;
@@ -38,6 +76,18 @@
                 border: none;
                 box-shadow: 2px 5px 46px rgb(232, 227, 227);
                 cursor: pointer;
+
+                @media (max-width: 768px) {
+                    width: 60%;
+                    height: 55px;
+                    font-size: 24px;
+                }
+
+                @media (max-width: 480px) {
+                    width: 80%;
+                    height: 50px;
+                    font-size: 20px;
+                }
             }
         }
     }
@@ -48,6 +98,14 @@
         align-items: center;
         justify-content: center;  
         // margin-left: 9%;  
+
+        @media (max-width: 768px) {
+            font-size: 40px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 30px;
+        }
     }
 }
 

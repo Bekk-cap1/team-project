@@ -119,59 +119,27 @@
                     margin-top: 50px;
                     margin-bottom: 20px;
                     width: 100%;
-                    .add-product-btn {
-                        margin-right: 50px;
-                        padding: 10px 20px;
-                        font-size: 18px;
-                        background-color: #7c2233;
-                        color: #fff;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
 
-                        &:hover {
-                            background-color: #5d1926;
-                            transform: translateY(-2px);
-                        }
-
-                        &:active {
-                            transform: translateY(0);
-                        }
-                    }
                     div {
-                        form {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
-
                         &:nth-child(1) {
                             position: relative;
                             width: 70%;
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-                            margin-top: 20px;
 
                             input {
-                                transition: 1s ease;
+                                transition: 0.3s ease;
                                 height: 60px;
                                 border: none;
                                 font-size: 26px;
-                                margin-left: 0%;
                                 padding-left: 10px;
                                 padding-bottom: 10px;
                                 border-bottom: 1px solid #7c2233;
                                 width: 550px;
-                                margin-top: 40px;
                                 outline: none;
                                 color: #7c2233;
 
-                                // &:focus{
-                                //     width: 100%;
-                                //     margin-left: 30px;
-                                // }
                                 &::placeholder {
                                     color: #7c2233;
                                 }
@@ -186,10 +154,7 @@
                                 background: #7c2233;
                                 color: #fff;
                                 font-size: 22px;
-                                z-index: 1;
                                 margin-left: -150px;
-                                margin-bottom: -20px;
-                                margin-top: 0;
                                 transition: 0.2s ease-in-out;
 
                                 &:active {
@@ -201,12 +166,10 @@
                         &:nth-child(2) {
                             width: 22%;
 
-                            // padding-left: 20%;
                             h4 {
                                 font-size: 22px;
                                 color: rgb(84, 53, 53);
                                 margin: 0;
-                                width: 100%;
 
                                 select {
                                     outline: none;
@@ -216,10 +179,6 @@
                                     width: 150px;
                                     color: #7c2233;
                                     padding-left: 20px;
-
-                                    option {
-                                        padding-left: 0;
-                                    }
                                 }
                             }
                         }
@@ -450,3 +409,460 @@
     background-color: #45a049;
   }
 }
+
+// Большие экраны (1200px и выше)
+@media (min-width: 1200px) {
+    .product {
+        &__container {
+            &__inner {
+                header {
+                    .cat {
+                        width: 70%;
+                    }
+                    .categoriy {
+                        .cat_item {
+                            img {
+                                width: 250px;
+                                height: 200px;
+                            }
+                        }
+                    }
+                }
+                main {
+                    .product__search {
+                        div {
+                            &:nth-child(1) {
+                                width: 70%;
+                                input {
+                                    width: 550px;
+                                }
+                            }
+                            &:nth-child(2) {
+                                width: 22%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Планшеты (992px - 1199px)
+@media (max-width: 1199px) {
+    .product {
+        &__container {
+            &__inner {
+                header {
+                    .cat {
+                        width: 80%;
+                        li {
+                            font-size: 20px;
+                        }
+                    }
+                    .categoriy {
+                        .cat_item {
+                            img {
+                                width: 220px;
+                                height: 180px;
+                            }
+                        }
+                    }
+                }
+                main {
+                    .product__search {
+                        div {
+                            &:nth-child(1) {
+                                width: 65%;
+                                input {
+                                    width: 450px;
+                                    font-size: 22px;
+                                }
+                            }
+                            &:nth-child(2) {
+                                width: 25%;
+                            }
+                        }
+                    }
+                    ul {
+                        li {
+                            width: 380px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Средние планшеты (768px - 991px)
+@media (max-width: 991px) {
+    .product {
+        &__container {
+            &__inner {
+                header {
+                    .cat {
+                        width: 90%;
+                        li {
+                            font-size: 18px;
+                            padding: 0 15px;
+                        }
+                    }
+                    .categoriy {
+                        justify-content: center;
+                        .cat_item {
+                            margin: 10px;
+                            img {
+                                width: 200px;
+                                height: 160px;
+                            }
+                        }
+                    }
+                }
+                main {
+                    .product__search {
+                        flex-direction: column;
+                        div {
+                            &:nth-child(1) {
+                                width: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                                form{
+                                    width: 100%;
+                                    text-align: center;
+                                }
+                                input {
+                                    width: 60%;
+                                    font-size: 20px;
+                                }
+                                button {
+                                    width: 120px;
+                                    font-size: 18px;
+                                    margin-left: 0;
+                                }
+                            }
+                            &:nth-child(2) {
+                                width: 100%;
+                                margin-top: 20px;
+                                text-align: center;
+                            }
+                        }
+                    }
+                    ul {
+                        justify-content: center;
+                        li {
+                            width: 340px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Телефоны (576px - 767px)
+@media (max-width: 767px) {
+    .product {
+        &__container {
+            &__inner {
+                header {
+                    .cat {
+                        width: 100%;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        li {
+                            font-size: 16px;
+                            padding: 0 10px;
+                            margin: 5px;
+                        }
+                    }
+                    .categoriy {
+                        .cat_item {
+                            img {
+                                width: 180px;
+                                height: 140px;
+                            }
+                            h5 {
+                                font-size: 16px;
+                                left: 20px;
+                            }
+                        }
+                    }
+                }
+                main {
+                    .product__search {
+                        div {
+                            &:nth-child(1) {
+                                input {
+                                    height: 50px;
+                                    font-size: 18px;
+                                }
+                                button {
+                                    width: 100px;
+                                    height: 40px;
+                                    font-size: 16px;
+                                }
+                            }
+                            &:nth-child(2) {
+                                h4 {
+                                    font-size: 18px;
+                                    select {
+                                        font-size: 18px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ul {
+                        li {
+                            width: 300px;
+                            margin: 15px;
+                            
+                            .swiper {
+                                height: 250px;
+                            }
+                            
+                            .about_product {
+                                h2 {
+                                    font-size: 20px;
+                                }
+                                p {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Маленькие телефоны (до 575px)
+@media (max-width: 575px) {
+    .product {
+        &__container {
+            &__inner {
+                header {
+                    .cat {
+                        li {
+                            font-size: 14px;
+                            padding: 0 8px;
+                        }
+                    }
+                    .categoriy {
+                        display: none;
+                        .cat_item {
+                            img {
+                                width: 150px;
+                                height: 120px;
+                            }
+                            h5 {
+                                font-size: 14px;
+                                left: 15px;
+                                bottom: 10px;
+                            }
+                        }
+                    }
+                }
+                main {
+                    .product__search {
+                        div {
+                            &:nth-child(1) {
+                                input {
+                                    height: 45px;
+                                    font-size: 16px;
+                                }
+                                button {
+                                    width: 90px;
+                                    height: 35px;
+                                    font-size: 14px;
+                                }
+                            }
+                            &:nth-child(2) {
+                                h4 {
+                                    font-size: 16px;
+                                    select {
+                                        font-size: 16px;
+                                        width: 120px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ul {
+                        li {
+                            width: 280px;
+                            margin: 10px;
+                            
+                            .swiper {
+                                height: 220px;
+                            }
+                            
+                            .about_product {
+                                padding: 0 15px;
+                                
+                                h2 {
+                                    font-size: 18px;
+                                }
+                                p {
+                                    font-size: 13px;
+                                    margin-bottom: 20px;
+                                }
+                                
+                                .indikator {
+                                    font-size: 13px;
+                                    
+                                    span strong {
+                                        font-size: 16px;
+                                    }
+                                }
+                                
+                                div {
+                                    button {
+                                        width: 90px;
+                                        height: 45px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .div__pagenation {
+                        ul {
+                            margin-left: 20%;
+                            
+                            button {
+                                width: 45px;
+                                height: 50px;
+                                font-size: 18px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.fixed-basket {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  
+    &:hover {
+      transform: scale(1.1);
+      background: #ff3333;
+    }
+  
+    .basket-icon {
+      position: relative;
+      
+      i {
+        color: white;
+        font-size: 24px;
+      }
+  
+      .basket-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: #fff;
+        color: #ff4d4d;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+      .modal {
+          .modal-content {
+              width: 95%;
+              margin: 10px auto;
+  
+              .modal-header {
+                  padding: 10px 15px;
+                  
+                  .modal-title {
+                      font-size: 1.2rem;
+                  }
+              }
+  
+              .modal-body {
+                  padding: 15px;
+  
+                  .form-group {
+                      margin-bottom: 0.8rem;
+                  }
+              }
+  
+              .modal-footer {
+                  padding: 10px 15px;
+  
+                  button {
+                      padding: 6px 15px;
+                      font-size: 14px;
+                  }
+              }
+          }
+      }
+  
+      .fixed-basket {
+          width: 50px;
+          height: 50px;
+          bottom: 20px;
+          right: 20px;
+  
+          .basket-icon {
+              i {
+                  font-size: 20px;
+              }
+  
+              .basket-count {
+                  width: 18px;
+                  height: 18px;
+                  font-size: 10px;
+              }
+          }
+      }
+  }
+  
+  @media screen and (max-width: 480px) {
+      .fixed-basket {
+          width: 45px;
+          height: 45px;
+          bottom: 15px;
+          right: 15px;
+  
+          .basket-icon {
+              i {
+                  font-size: 18px;
+              }
+  
+              .basket-count {
+                  width: 16px;
+                  height: 16px;
+                  font-size: 9px;
+              }
+          }
+      }
+  }

@@ -11,6 +11,7 @@ function Header() {
   const [scrol, setScrol] = useState(false);
   const [menu, setMenu] = useState(false);
   const [language, setLanguage] = useState(window.localStorage.getItem("language") || "ru");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const offSet = 100;
   const getTop = () => window.pageYOffset || document.documentElement.scrollTop;
@@ -62,6 +63,12 @@ function Header() {
     }
   }, [local, navigate]);
 
+  // Сброс overflow при смене страницы
+  useEffect(() => {
+    document.body.style.overflow = 'auto';
+    setIsMenuOpen(false);
+  }, [local.pathname]);
+
   // Переключение языка
   const select_langu = (e) => {
     const selectedLanguage = e.target.value;
@@ -71,9 +78,9 @@ function Header() {
   };
 
   // Переключение меню на мобильных устройствах
-  const menuHam = () => {
-    setMenu(!menu);
-    document.body.style.overflow = menu ? "auto" : "hidden";
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
   };
 
   // Выход из аккаунта
@@ -89,46 +96,141 @@ function Header() {
       <div className="container">
         <div className="header__inner">
           <h1>FAST & FOOD</h1>
-          <ul>
-            {dataPage?.map((e) => (
-              <Link key={e.en} to={`/${e.en}`}>
-                <strong>{e[`${language}`]}</strong>
-              </Link>
-            ))}
-          </ul>
 
-          <div className="account__login">
-            {user ? (
-              <div className="account__login__user">
-                <button onClick={()=>navigate('/korzinka')} className="btn btn-outline-light me-2 basket__btn">
-                  В корзину <i className="bi bi-cart-fill me-1"></i>
-                </button>
-                <div onClick={() => navigate('/profile')} className="d-flex align-items-center" style={{cursor: 'pointer'}}>
-                  <h4 className="mb-0 me-2">{user.login}</h4>
-                  <img src={user.photo || User__foto} alt="User" className="rounded-circle" style={{width: '50px', height: '50px'}} />
+          {/* Десктопное меню */}
+          <div className="desktop-menu">
+            <div className="nav-links">
+              <ul>
+                {dataPage?.map((e) => (
+                  <Link key={e.en} to={`/${e.en}`}>
+                    <strong>{e[`${language}`]}</strong>
+                  </Link>
+                ))}
+              </ul>
+            </div>
+
+            <div className="account__login">
+              {user ? (
+                <div className="account__login__user">
+                  <button 
+                    onClick={() => navigate('/korzinka')} 
+                    className="btn btn-outline-light me-2 basket__btn"
+                  >
+                    В корзину <i className="bi bi-cart-fill me-1"></i>
+                  </button>
+                  
+                  <div 
+                    onClick={() => navigate('/profile')} 
+                    className="d-flex align-items-center"
+                  >
+                    <h4 className="mb-0 me-2">{user.login}</h4>
+                    <img src={user.photo || User__foto} alt="User" className="rounded-circle" />
+                  </div>
+                  
+                  <button 
+                    onClick={handleLogout} 
+                    className="btn btn-outline-light ms-2 basket__btn"
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                  </button>
                 </div>
-                <button onClick={handleLogout} className="btn btn-outline-light ms-2 basket__btn">
-                  <i className="bi bi-box-arrow-right"></i>
-                </button>
-              </div>
-            ) : (
-              <div className="signin__signup">
-                <Link to="/signin">
-                  <button className="login-btn">Log In</button>
-                </Link>
-                <Link to="/signup">
-                  <button className="login-btn">Sign Up</button>
-                </Link>
-              </div>
-            )}
+              ) : (
+                <div className="signin__signup">
+                  <Link to="/signin">
+                    <button className="login-btn">Log In</button>
+                  </Link>
+                  <Link to="/signup">
+                    <button className="login-btn">Sign Up</button>
+                  </Link>
+                </div>
+              )}
 
-            <select value={language} onChange={select_langu}>
-              <option value="ru">Ru</option>
-              <option value="en">Eng</option>
-            </select>
+              <div className="language-selector">
+                <select value={language} onChange={select_langu}>
+                  <option value="ru">Ru</option>
+                  <option value="en">Eng</option>
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
+          
+          {/* Мобильное меню */}
+          <div className={`hamburger ${isMenuOpen ? 'activeee' : ''}`} onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
+          <div className={`nav-menu ${isMenuOpen ? 'activee' : 'none'}`}>
+            <div className="nav-links">
+              <ul>
+                {dataPage?.map((e) => (
+                  <Link 
+                    key={e.en} 
+                    to={`/${e.en}`} 
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <strong>{e[`${language}`]}</strong>
+                  </Link>
+                ))}
+              </ul>
+            </div>
+
+            <div className="account__login">
+              {user ? (
+                <div className="account__login__user">
+                  <button 
+                    onClick={() => {
+                      navigate('/korzinka');
+                      setIsMenuOpen(false);
+                    }} 
+                    className="btn btn-outline-light me-2 basket__btn"
+                  >
+                    В корзину <i className="bi bi-cart-fill me-1"></i>
+                  </button>
+                  
+                  <div 
+                    onClick={() => {
+                      navigate('/profile');
+                      setIsMenuOpen(false);
+                    }} 
+                    className="d-flex align-items-center"
+                  >
+                    <h4 className="mb-0 me-2">{user.login}</h4>
+                    <img src={user.photo || User__foto} alt="User" className="rounded-circle" />
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }} 
+                    className="btn btn-outline-light ms-2 basket__btn"
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                  </button>
+                </div>
+              ) : (
+                <div className="signin__signup">
+                  <Link to="/signin" onClick={() => setIsMenuOpen(false)}>
+                    <button className="login-btn">Log In</button>
+                  </Link>
+                  <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
+                    <button className="login-btn">Sign Up</button>
+                  </Link>
+                </div>
+              )}
+
+              <div className="language-selector">
+                <select value={language} onChange={select_langu}>
+                  <option value="ru">Ru</option>
+                  <option value="en">Eng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+        </div>
       </div>
     </div>
   );

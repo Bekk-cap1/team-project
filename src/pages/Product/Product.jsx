@@ -416,7 +416,7 @@ function Product() {
               </div>
               {isAdmin && (
                 <button
-                  onClick={() => setShowAddModal(true)}
+                  onClick={() => navigate('/addData')}
                   className="add-product-btn"
                 >
                   Добавить товар
@@ -582,7 +582,7 @@ function Product() {
                               navigate('/signin');
                             }
                           }}>
-                            {userId && korzinka.some(item => item.id === e.id) ? (
+                            {userId && cartItems.some(item => item.id === e.id) ? (
                               <i className="bi bi-cart-check"></i>
                             ) : (
                               <i className="bi bi-cart-plus"></i>
@@ -817,6 +817,15 @@ function Product() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <div className="fixed-basket" onClick={() => navigate('/korzinka')}>
+        <div className="basket-icon">
+          <i className="bi bi-cart3"></i>
+          {korzinka.length > 0 && (
+            <span className="basket-count">{korzinka.length}</span>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
