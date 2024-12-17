@@ -5,7 +5,7 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 
         .modal-header {
-            background: #7c2233;
+            background: #edb819;
             color: white;
             border-radius: 15px 15px 0 0;
             border: none;
@@ -70,7 +70,7 @@
                     }
 
                     &:focus {
-                        border-color: #7c2233;
+                        border-color: #edb819;
                         box-shadow: 0 0 0 0.2rem rgba(124, 34, 51, 0.25);
                     }
                 }
@@ -97,7 +97,7 @@
                 }
 
                 &.btn-primary {
-                    background: #7c2233;
+                    background: #edb819;
                     border: none;
 
                     &:hover {
@@ -136,14 +136,14 @@
                     width: 50px;
                     height: 50px;
                     border: 5px solid #f3f3f3;
-                    border-top: 5px solid #7c2233;
+                    border-top: 5px solid #edb819;
                     border-radius: 50%;
                     animation: spin 1s linear infinite;
                 }
 
                 .loading-text {
                     font-size: 20px;
-                    color: #7c2233;
+                    color: #edb819;
                     font-weight: bold;
                 }
 
@@ -234,7 +234,7 @@
                 align-items: center;
                 width: 90%;
                 height: 100px;
-                background: #7c2233;
+                background: #edb819;
                 border-radius: 10px;
                 margin-top: 40px;
                 position: relative;
@@ -254,7 +254,7 @@
                         outline: none;
                         font-size: 25px;
                         padding-left: 20px;
-                        border: 1px solid #7c2233;
+                        border: 1px solid #edb819;
                         font-family: 'Times New Roman', Times, serif;
                         z-index: 1;
                     }
@@ -268,7 +268,7 @@
                         height: 50px;
                         border-radius: 25px;
                         border: none;
-                        background: #7c2233;
+                        background: #edb819;
                         color: #fff;
                         font-size: 22px;
                         z-index: 1;
@@ -298,7 +298,7 @@
 
                         select, input {
                             padding: 8px 12px;
-                            border: 1px solid #7c2233;
+                            border: 1px solid #edb819;
                             border-radius: 8px;
                             font-size: 16px;
                             outline: none;
@@ -312,7 +312,7 @@
                     button {
                         width: 150px;
                         height: 60px;
-                        background: #7c2233;
+                        background: #edb819;
                         color: white;
                         border: none;
                         border-radius: 8px;
@@ -333,13 +333,13 @@
                 .assort {
                     font-size: 27px;
                     margin-bottom: 0;
-                    color: #7c2233;
+                    color: #edb819;
                     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                 }
 
                 hr {
                     width: 100%;
-                    border: 1px solid #7c2233;
+                    border: 1px solid #edb819;
                 }
 
                 ul {
@@ -353,7 +353,7 @@
 
                     li {
                         border-radius: 25px;
-                        box-shadow: 0 0 31px 8px rgba(186, 175, 186, 1);
+                        box-shadow: 0 0 31px 0.1px rgb(63, 63, 50);
                         width: 420px;
                         margin: 0;
                         cursor: pointer;
@@ -412,7 +412,7 @@
 
                             .progress-fill {
                                 height: 100%;
-                                background: linear-gradient(90deg, #7c2233, #db5f75);
+                                background: linear-gradient(90deg, #edb819, #db5f75);
                                 transition: width 0.4s ease;
                             }
                         }
@@ -426,7 +426,7 @@
                             padding: 0 20px;
                             text-transform: capitalize;
                             padding-bottom: 20px;
-                            color: #7c2233;
+                            color: #000000;
 
                             .none {
                                 display: none;
@@ -441,7 +441,7 @@
                                 span {
                                     display: flex;
                                     align-items: center;
-                                    color: #7c2233;
+                                    color: #edb819;
 
                                     strong {
                                         i {
@@ -496,7 +496,7 @@
                                     width: 100px;
                                     height: 50px;
                                     background: none;
-                                    border: 1px solid #7c2233;
+                                    border: 1px solid #edb819;
                                     border-radius: 15px;
                                     cursor: pointer;
                                     z-index: 9999;
@@ -505,7 +505,7 @@
 
                                 i {
                                     font-size: 30px;
-                                    color: #7c2233;
+                                    color: #edb819;
                                 }
                             }
                         }

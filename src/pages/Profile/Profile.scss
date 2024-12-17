@@ -19,7 +19,7 @@
       height: 150px;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid #7c2233;
+      border: 3px solid #edb819;
       padding: 3px;
     }
   }
@@ -40,7 +40,7 @@
       border-radius: 4px;
       
       &:focus {
-        border-color: #7c2233;
+        border-color: #edb819;
         box-shadow: 0 0 0 0.2rem rgba(124, 34, 51, 0.25);
         outline: none;
       }
@@ -53,7 +53,7 @@
   }
 
   .btn-primary {
-    background-color: #7c2233;
+    background-color: #edb819;
     border: none;
     padding: 8px 20px;
     border-radius: 8px;

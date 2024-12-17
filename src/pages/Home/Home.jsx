@@ -204,12 +204,14 @@ function Home() {
 
     if (elSearch.trim() == "") {
       result = products;
+      setPaginationTrue(false)
     } else {
       result = products.filter((item) =>
         item.category?.toLowerCase().includes(elSearch) ||
         item[`list_name_${lan}`]?.toLowerCase().includes(elSearch) ||
         item[`list_text_${lan}`]?.toLowerCase().includes(elSearch)
       );
+      setPaginationTrue(true)
     }
 
     setSearchData(result);

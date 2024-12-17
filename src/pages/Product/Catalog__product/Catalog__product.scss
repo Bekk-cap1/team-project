@@ -9,9 +9,10 @@
 
                 a {
                     cursor: pointer;
-                    color: #7c2233;
+                    color: #edb819;
                     text-decoration: none;
                     transition: color 0.3s;
+                    font-size: 24px;
 
                     &:hover {
                         color: #9c2940;
@@ -19,7 +20,8 @@
                 }
 
                 .a__catal {
-                    color: #7c2233;
+                    color: #edb819;
+                    font-size: 24px;
                 }
 
                 strong {
@@ -51,7 +53,7 @@
                     margin-left: 50px;
                     justify-content: space-between;
                     flex-direction: column;
-                    color: #7c2233;
+                    color: #000;
 
                     h2 {
                         font-size: 42px;
@@ -68,6 +70,9 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        b{
+                            font-size: 36px;
+                        }
 
                         h6 {
                             margin-top: 30px;
@@ -77,10 +82,11 @@
                         }
 
                         h5 {
-                            font-size: 18px;
+                            font-size: 26px;
 
                             strong {
-                                color: #7c2233;
+                                color: #000;
+                                font-size: 26px;
                             }
                         }
                     }
@@ -191,7 +197,7 @@
         width: 50px;
         height: 50px;
         border: 5px solid #f3f3f3;
-        border-top: 5px solid #7c2233;
+        border-top: 5px solid #edb819;
         border-radius: 50%;
         animation: spin 1s linear infinite;
     }
