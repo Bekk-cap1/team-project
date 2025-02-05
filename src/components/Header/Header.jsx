@@ -13,6 +13,8 @@ function Header() {
   const [language, setLanguage] = useState(window.localStorage.getItem("language") ? window.localStorage.getItem("language") : "ru");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  window.localStorage.getItem("language") ? window.localStorage.getItem("language") : window.localStorage.setItem("language", "ru")
+  
   const offSet = 100;
   const getTop = () => window.pageYOffset || document.documentElement.scrollTop;
 
