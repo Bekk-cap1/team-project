@@ -10,7 +10,7 @@ function Header() {
   const [userData, setUserData] = useState([]);
   const [scrol, setScrol] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [language, setLanguage] = useState(window.localStorage.getItem("language") || "ru");
+  const [language, setLanguage] = useState(window.localStorage.getItem("language") ? window.localStorage.getItem("language") : "ru");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const offSet = 100;
