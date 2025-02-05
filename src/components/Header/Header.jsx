@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../../assets/Context/Context";
 
 function Header() {
+  window.localStorage.getItem("language") ? window.localStorage.getItem("language") : window.localStorage.setItem("language", "ru")
   const userId = window.sessionStorage.getItem("userId");
   const [userData, setUserData] = useState([]);
   const [scrol, setScrol] = useState(false);
@@ -13,7 +14,6 @@ function Header() {
   const [language, setLanguage] = useState(window.localStorage.getItem("language") ? window.localStorage.getItem("language") : "ru");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  window.localStorage.getItem("language") ? window.localStorage.getItem("language") : window.localStorage.setItem("language", "ru")
   
   const offSet = 100;
   const getTop = () => window.pageYOffset || document.documentElement.scrollTop;
