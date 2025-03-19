@@ -88,6 +88,7 @@ function Header() {
   // Выход из аккаунта
   const handleLogout = () => {
     window.sessionStorage.removeItem("userId");
+    window.sessionStorage.removeItem("isAdmin");
     navigate("/signin");
   };
 
