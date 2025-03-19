@@ -115,7 +115,6 @@ function Home() {
 
   const handleDeleteProduct = async (id, event) => {
     event.stopPropagation();
-    if(sessionStorage.getItem(isAdmin)){
     if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
       try {
         const response = await fetch(`https://638208329842ca8d3c9f7558.mockapi.io/team-project/${id}`, {
@@ -127,7 +126,6 @@ function Home() {
       } catch (error) {
         console.error('Ошибка при удалении:', error);
       }
-    }
     }
   };
 
